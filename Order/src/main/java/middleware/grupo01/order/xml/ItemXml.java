@@ -1,0 +1,59 @@
+package middleware.grupo01.order.xml;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "item", propOrder = {
+	"categoria",
+	"idProducto",
+	"descripcion",
+	"cantidad",
+	"precio"
+})
+public class ItemXml {
+
+	@XmlElement(name = "Categoria")
+	private Integer categoria;
+	@XmlElement(name = "IdProducto")
+	private Long idProducto;
+	@XmlElement(name = "Descripcion")
+	private String descripcion;
+	@XmlElement(name = "Cantidad")
+	private Integer cantidad;
+	@XmlElement(name = "Precio")
+	private Double precio;
+	public Integer getCategoria() {
+		return categoria;
+	}
+	public void setCategoria(Integer categoria) {
+		this.categoria = categoria;
+	}
+	public Long getIdProducto() {
+		return idProducto;
+	}
+	public void setIdProducto(Long idProducto) {
+		this.idProducto = idProducto;
+	}
+	public String getDescripcion() {
+		return descripcion;
+	}
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+	public Integer getCantidad() {
+		return cantidad;
+	}
+	public void setCantidad(Integer cantidad) {
+		this.cantidad = cantidad;
+	}
+	public Double getPrecio() {
+		return precio;
+	}
+	public void setPrecio(Double precio) {
+		this.precio = precio;
+	}
+	
+}
