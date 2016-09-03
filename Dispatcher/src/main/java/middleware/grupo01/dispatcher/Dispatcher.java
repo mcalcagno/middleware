@@ -1,26 +1,19 @@
 package middleware.grupo01.dispatcher;
 
-<<<<<<< HEAD
+
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
-=======
-import javax.jms.Connection;
->>>>>>> 8a6103e94d433bc7c5b4dd58834982a603ad7eb1
+
 import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageConsumer;
+import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
-
-import org.apache.activemq.ActiveMQConnectionFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import backoffice.DataSysBO;
 
 public class Dispatcher 
 {
@@ -36,7 +29,6 @@ public class Dispatcher
 	
     public static void main( String[] args ) throws JMSException
     {
-<<<<<<< HEAD
         System.out.println( "DISPATCHER INICIO" );
  		
         initialize();
@@ -56,15 +48,7 @@ public class Dispatcher
  		}
  		
  		finalization();
-=======
-    	 ApplicationContext context = new ClassPathXmlApplicationContext("Bean.xml");
 
-    	 DataSysBO obj = (DataSysBO) context.getBean("idPrueba");
-    	
-        System.out.println(obj.getPrueba());
-       //thread(new DispatcherConsumer(), false);
-       // thread(new DispatcherConsumer(), false);
->>>>>>> 8a6103e94d433bc7c5b4dd58834982a603ad7eb1
     }
     
     private static void initialize() throws JMSException{
