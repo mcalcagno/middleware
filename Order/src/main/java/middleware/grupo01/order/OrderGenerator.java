@@ -33,7 +33,7 @@ public class OrderGenerator
 	private static Connection connection;
 	private static MessageProducer producer;
 	private static Session session; 
-	//prueba
+
 	public static void main( String[] args ) throws Exception
     {
 		initialize();
@@ -45,7 +45,7 @@ public class OrderGenerator
 		p.setfPago(PaymentXml.EFECTVO);
 		FacturationXml f = new FacturationXml();
 		f.setCuotas(1);
-		f.setMonto(10.0);
+		f.setMonto(14.0);
 		f.setMoneda(CurrencyXml.PESOS);
 		p.setFacturacion(f);
 		ItemXml i = new ItemXml();
@@ -56,18 +56,18 @@ public class OrderGenerator
 		i.setPrecio(1.0);
 		p.getItems().add(i);
 		ItemXml i2 = new ItemXml();
-		i2.setCantidad(1);
+		i2.setCantidad(2);
 		i2.setCategoria(CategoryXml.MOBILE);
 		i2.setDescripcion("desc2");
 		i2.setIdProducto(2L);
-		i2.setPrecio(1.0);
+		i2.setPrecio(2.0);
 		p.getItems().add(i2);
 		ItemXml i3 = new ItemXml();
-		i3.setCantidad(1);
+		i3.setCantidad(3);
 		i3.setCategoria(CategoryXml.RED_STRAWBERRY);
 		i3.setDescripcion("desc2");
 		i3.setIdProducto(2L);
-		i3.setPrecio(1.0);
+		i3.setPrecio(3.0);
 		p.getItems().add(i3);
 		
 		
