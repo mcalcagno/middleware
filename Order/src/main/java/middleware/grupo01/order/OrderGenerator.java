@@ -33,7 +33,7 @@ public class OrderGenerator
 	private static Connection connection;
 	private static MessageProducer producer;
 	private static Session session; 
-	
+	//prueba
 	public static void main( String[] args ) throws Exception
     {
 		initialize();
