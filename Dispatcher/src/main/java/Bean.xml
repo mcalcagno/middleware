@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-xml="http://www.springframework.org/schema/integration/xml"
+	xmlns:v2.16="http://camel.apache.org/schema/spring/v2.16"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration/xml
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://camel.apache.org/schema/spring/v2.16 http://camel.apache.org/schema/spring/v2.16
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd">
 
+     
  <bean id="idPrueba" class="backoffice.DataSysBO">
        <property name="prueba" value="Hello World Prueba!"/>
    </bean>
+   
+   <int-xml:xpath-router id="responderRouter" input-channel="orderChannel">
+	    <int-xml:xpath-expression expression="/request/responders"/>
+	    <int-xml:mapping value="responderA" channel="channelA"/>
+	    <int-xml:mapping value="responderB" channel="channelB"/>
+	</int-xml:xpath-router>
+   
+   
    
 </beans>
