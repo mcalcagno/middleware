@@ -16,7 +16,7 @@ public class FacturationXml {
 	@XmlElement(name = "Monto")
 	private Double monto;
 	@XmlElement(name = "Moneda")
-	private Integer moneda;
+	private CurrencyXml moneda;
 	@XmlElement(name = "Cuotas")
 	private Integer cuotas;
 	
@@ -26,10 +26,10 @@ public class FacturationXml {
 	public void setMonto(Double monto) {
 		this.monto = monto;
 	}
-	public Integer getMoneda() {
+	public CurrencyXml getMoneda() {
 		return moneda;
 	}
-	public void setMoneda(Integer moneda) {
+	public void setMoneda(CurrencyXml moneda) {
 		this.moneda = moneda;
 	}
 	public Integer getCuotas() {

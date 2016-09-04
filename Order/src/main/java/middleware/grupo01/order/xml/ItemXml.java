@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlType;
 public class ItemXml {
 
 	@XmlElement(name = "Categoria")
-	private Integer categoria;
+	private CategoryXml categoria;
 	@XmlElement(name = "IdProducto")
 	private Long idProducto;
 	@XmlElement(name = "Descripcion")
@@ -25,10 +25,11 @@ public class ItemXml {
 	private Integer cantidad;
 	@XmlElement(name = "Precio")
 	private Double precio;
-	public Integer getCategoria() {
+	
+	public CategoryXml getCategoria() {
 		return categoria;
 	}
-	public void setCategoria(Integer categoria) {
+	public void setCategoria(CategoryXml categoria) {
 		this.categoria = categoria;
 	}
 	public Long getIdProducto() {

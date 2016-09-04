@@ -4,6 +4,8 @@ package middleware.grupo01.order;
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
+import middleware.grupo01.order.xml.CategoryXml;
+import middleware.grupo01.order.xml.CurrencyXml;
 import middleware.grupo01.order.xml.FacturationXml;
 import middleware.grupo01.order.xml.ItemXml;
 import middleware.grupo01.order.xml.PaymentXml;
@@ -44,22 +46,29 @@ public class OrderGenerator
 		FacturationXml f = new FacturationXml();
 		f.setCuotas(1);
 		f.setMonto(10.0);
-		f.setMoneda(858);
+		f.setMoneda(CurrencyXml.PESOS);
 		p.setFacturacion(f);
 		ItemXml i = new ItemXml();
 		i.setCantidad(1);
-		i.setCategoria(1);
+		i.setCategoria(CategoryXml.DATA);
 		i.setDescripcion("desc");
 		i.setIdProducto(2L);
 		i.setPrecio(1.0);
 		p.getItems().add(i);
 		ItemXml i2 = new ItemXml();
 		i2.setCantidad(1);
-		i2.setCategoria(1);
+		i2.setCategoria(CategoryXml.MOBILE);
 		i2.setDescripcion("desc2");
 		i2.setIdProducto(2L);
 		i2.setPrecio(1.0);
 		p.getItems().add(i2);
+		ItemXml i3 = new ItemXml();
+		i3.setCantidad(1);
+		i3.setCategoria(CategoryXml.RED_STRAWBERRY);
+		i3.setDescripcion("desc2");
+		i3.setIdProducto(2L);
+		i3.setPrecio(1.0);
+		p.getItems().add(i3);
 		
 		
 		String poStr = getPurchaseOrderString(p); 
