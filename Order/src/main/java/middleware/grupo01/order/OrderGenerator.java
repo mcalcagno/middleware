@@ -89,11 +89,6 @@ public class OrderGenerator
 		session = connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
 		Destination destination = session.createQueue(DISPACHER_QUEUE);
 		producer = session.createProducer(destination);
-		
-		Runnable invalidRunneable = new InvalidConsumer();
-		Thread invalidThread = new Thread(invalidRunneable);
-		invalidThread.setDaemon(false);
-		invalidThread.start();
 	}
 	
 	private static void finalization() throws JMSException{
