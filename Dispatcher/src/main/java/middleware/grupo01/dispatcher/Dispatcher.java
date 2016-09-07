@@ -2,14 +2,12 @@ package middleware.grupo01.dispatcher;
 
 
 import org.apache.activemq.ActiveMQConnection;
+
 import org.apache.activemq.ActiveMQConnectionFactory;
-import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
-import java.io.IOException;
 import java.io.StringReader;
 
 import javax.jms.Connection;
@@ -22,20 +20,20 @@ import javax.jms.MessageConsumer;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Dispatcher 
 {
 	private static String url = ActiveMQConnection.DEFAULT_BROKER_URL;
 
 	private static final String DISPACHER_QUEUE = "DISPACHER_QUEUE"; 
-	private static final String INVALID_QUEUE = "INVALID_QUEUE"; 
+	//private static final String INVALID_QUEUE = "INVALID_QUEUE"; 
 
 	private static final String ORDEN_MONTO_EXP = "/Orden/Facturacion/Monto";
 	private static final String ORDEN_CANT_EXP = "/Orden/Item/Cantidad";
@@ -50,8 +48,11 @@ public class Dispatcher
 	
     public static void main( String[] args ) throws JMSException
     {
-        System.out.println( "DISPATCHER INICIO" );
- 		
+        
+    	
+    	System.out.println( "DISPATCHER INICIO" );
+    	AbstractApplicationContext context = new ClassPathXmlApplicationContext("/META-INF/spring/consumer-jms-context.xml", Dispatcher.class);
+        /*
         initialize();
         
  		Message message = consumer.receive();
@@ -69,6 +70,8 @@ public class Dispatcher
  		}
  		
  		finalization();
+ 		
+ 		*/
 
     }
     
@@ -78,9 +81,7 @@ public class Dispatcher
  		connection.start();
  		session = connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
  		Destination destination = session.createQueue(DISPACHER_QUEUE);
- 		Destination destinationInvalidQueue = session.createQueue(INVALID_QUEUE);
  		consumer = session.createConsumer(destination);
- 		invalidProducer = session.createProducer(destinationInvalidQueue);
     }
     
     private static void finalization() throws JMSException{
@@ -120,5 +121,4 @@ public class Dispatcher
 		}
 		return ret;
 	}
-    
 }
