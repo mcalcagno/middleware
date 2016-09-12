@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jms="http://www.springframework.org/schema/jms"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:jms-int="http://www.springframework.org/schema/integration/jms"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:int-xml="http://www.springframework.org/schema/integration/xml"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd
+    http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+    http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms-4.1.xsd
+    http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.1.xsd
+    http://www.springframework.org/schema/integration/xml http://www.springframework.org/schema/integration/xml/spring-integration-xml.xsd">
+
+  <bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory"
+    p:brokerURL="tcp://localhost:61616">
+    <property name="trustAllPackages" value="true"/>
+  </bean>
+  
+  <bean id="inputDispacherQueue" class="org.apache.activemq.command.ActiveMQQueue">
+    <constructor-arg value="DISPACHER_QUEUE" />
+  </bean>
+  <!--
+  <bean id="outDispacherQueue" class="org.apache.activemq.command.ActiveMQQueue">
+    <constructor-arg value="OUT_DISPACHER_QUEUE" />
+  </bean>  
+  -->
+  <bean id="invalidQueue" class="org.apache.activemq.command.ActiveMQQueue">
+    <constructor-arg value="INVALID_QUEUE" />
+  </bean>
+    
+  <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate"
+    p:connectionFactory-ref="connectionFactory"
+    p:defaultDestination-ref="inputDispacherQueue"/>
+  
+  <bean id="inputQueueListener" class="middleware.grupo01.listener.OrderMessageListener" />
+  <bean id="invalidQueueListener" class="middleware.grupo01.listener.InvalidQueueMessageListener" />
+  <!--<bean id="outputQueueListener" class="middleware.grupo01.listener.OutputQueueMessageListener" />-->
+  <bean id="filterDispatcherQueue" class="middleware.grupo01.filter.FilterDispatcherQueue"/> 
+  
+  <jms:listener-container concurrency="5-10">
+    <!--<jms:listener destination="DISPACHER_QUEUE" ref="inputQueueListener"/>-->
+    <jms:listener destination="OUT_DISPACHER_QUEUE" ref="outputQueueListener"/>
+    <jms:listener destination="INVALID_QUEUE" ref="invalidQueueListener"/>
+  </jms:listener-container>
+  
+  <jms-int:channel id="inputDispacherChannel" queue-name="DISPACHER_QUEUE"/>
+  
+  <jms-int:channel id="outputFilterChannel"/>
+  <int-xml:xpath-splitter input-channel="outputFilterChannel" /> 
+  
+  <int:filter input-channel="inputDispacherChannel" ref="filterDispatcherQueue" method="isValid" 
+    output-channel="outputFilterChannel" discard-channel="invalidChannel" />
+<!--    
+  <int:publish-subscribe-channel id="invalidChannel" task-executor="pool"/>
+  <task:executor id="pool" pool-size="1-2"
+		queue-capacity="100" rejection-policy="CALLER_RUNS"/>
+  <int:publish-subscribe-channel id="outDispacherChannel" task-executor="pool2" />
+  <task:executor id="pool2" pool-size="1-2"
+		queue-capacity="100" rejection-policy="CALLER_RUNS"/>  
+-->    
+  
+  
+  <int:service-activator input-channel="invalidChannel" ref="invalidQueueListener"/>
+  
+</beans>
