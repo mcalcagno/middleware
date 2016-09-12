@@ -51,7 +51,8 @@ public class Dispatcher
         
     	
     	System.out.println( "DISPATCHER INICIO" );
-    	AbstractApplicationContext context = new ClassPathXmlApplicationContext("/META-INF/spring/consumer-jms-context.xml", Dispatcher.class);
+    	//AbstractApplicationContext context = new ClassPathXmlApplicationContext("/META-INF/spring/consumer-jms-context.xml", Dispatcher.class);
+    	AbstractApplicationContext context = new ClassPathXmlApplicationContext("/META-INF/spring/context.xml", Dispatcher.class);
         /*
         initialize();
         
