@@ -49,6 +49,7 @@ public class OrderGenerator
 		f.setMoneda(CurrencyXml.PESOS);
 		p.setFacturacion(f);
 		ItemXml i = new ItemXml();
+		i.setNroItem(1L);
 		i.setCantidad(1);
 		i.setCategoria(CategoryXml.DATA);
 		i.setDescripcion("desc");
@@ -56,6 +57,7 @@ public class OrderGenerator
 		i.setPrecio(1.0);
 		p.getItems().add(i);
 		ItemXml i2 = new ItemXml();
+		i2.setNroItem(2L);
 		i2.setCantidad(2);
 		i2.setCategoria(CategoryXml.MOBILE);
 		i2.setDescripcion("desc2");
@@ -63,6 +65,7 @@ public class OrderGenerator
 		i2.setPrecio(2.0);
 		p.getItems().add(i2);
 		ItemXml i3 = new ItemXml();
+		i3.setNroItem(3L);
 		i3.setCantidad(3);
 		i3.setCategoria(CategoryXml.RED_STRAWBERRY);
 		i3.setDescripcion("desc2");
@@ -77,7 +80,7 @@ public class OrderGenerator
 		
 		// SEND
 		producer.send(message);
-		System.out.println("Sentage " + message.getText());
+		System.out.println("Sentage ");
 		
 		finalization();
     }    

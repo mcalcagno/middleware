@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "item", propOrder = {
+	"nroItem",
 	"categoria",
 	"idProducto",
 	"descripcion",
@@ -15,6 +16,8 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class ItemXml {
 
+	@XmlElement(name = "NroItem")
+	private Long nroItem;
 	@XmlElement(name = "Categoria")
 	private CategoryXml categoria;
 	@XmlElement(name = "IdProducto")
@@ -55,6 +58,12 @@ public class ItemXml {
 	}
 	public void setPrecio(Double precio) {
 		this.precio = precio;
+	}
+	public Long getNroItem() {
+		return nroItem;
+	}
+	public void setNroItem(Long nroItem) {
+		this.nroItem = nroItem;
 	}
 	
 }
