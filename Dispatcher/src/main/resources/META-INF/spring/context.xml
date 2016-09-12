@@ -63,9 +63,9 @@
     <int-xml:mapping value="2" channel="mobileSysChannel"/>
     <int-xml:mapping value="3" channel="redStrawberryChannel"/>
   </int-xml:xpath-router>
-  <jms-int:channel id="dataSysChannel" queue-name="DATASYS_QUEUE"/>
-  <jms-int:channel id="mobileSysChannel" queue-name="MOBILESYS_QUEUE"/>
-  <jms-int:channel id="redStrawberryChannel" queue-name="REDSTRAWBERRY_QUEUE"/>
+  <int:channel id="dataSysChannel"/>
+  <int:channel id="mobileSysChannel"/>
+  <int:channel id="redStrawberryChannel"/>
   
   <!-- 
   <int:service-activator id="serviceTrail1" input-channel="dataSysChannel" ref="dataSysListener"/>
@@ -87,5 +87,7 @@
   </jms:listener-container>
   
   <int-stream:stdout-channel-adapter channel="dataSysChannel" append-newline="true"/>
+  <int-stream:stdout-channel-adapter channel="mobileSysChannel" append-newline="true"/>
+  <int-stream:stdout-channel-adapter channel="redStrawberryChannel" append-newline="true"/>
   
 </beans>

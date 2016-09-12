@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+<xsl:template match="/Orden">
+<xsl:variable name="NroOrden" select="NroOrden"/>
+<xsl:variable name="IdCliente" select="IdCliente"/>
+<ItemsOrden>
+	<xsl:for-each select="Item">
+	<ItemOrden>
+		<IdOrden><xsl:value-of select="$NroOrden"/></IdOrden>
+		<IdCliente><xsl:value-of select="$IdCliente"/></IdCliente>
+		<IdItem><xsl:value-of select="NroItem"/></IdItem>
+		<IdProducto><xsl:value-of select="IdProducto"/></IdProducto>
+		<Cantidad><xsl:value-of select="Cantidad"/></Cantidad>
+		<Categoria><xsl:value-of select="Categoria"/></Categoria>
+	</ItemOrden>	
+	</xsl:for-each>
+</ItemsOrden>
+</xsl:template>
+</xsl:stylesheet>
