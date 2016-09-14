@@ -34,15 +34,6 @@
     p:defaultDestination-ref="inputDispacherQueue"/>
   
   <jms-int:channel id="inputDispacherChannel" queue-name="DISPACHER_QUEUE"/>
- 
- <!--  
-  <int:header-enricher input-channel="inputDispacherChannel" output-channel="enrichedChannel" 
-  	ref="seterLineTotSum" method="set">
-  	<int:header name="LineTotSum" overwrite="true" />
-  </int:header-enricher>
-  <int:channel id="enrichedChannel"/>  
-  <bean id="seterLineTotSum" class="middleware.grupo01.enricher.HeaderEnricherLineTot"/>
--->  
   
   <int:filter input-channel="inputDispacherChannel" 
   	ref="filterDispatcherQueue" method="isValid" 
@@ -67,12 +58,6 @@
   <int:channel id="mobileSysChannel"/>
   <int:channel id="redStrawberrySimpleChannel"/>
   
-  <!-- 
-  <int:service-activator id="serviceTrail1" input-channel="dataSysChannel" ref="dataSysListener"/>
-  <int:service-activator id="serviceTrail2" input-channel="mobileSysChannel" ref="mobileSysListener"/>
-  <int:service-activator id="serviceTrail1" input-channel="redStrawberryChannel" ref="redStrawberryListener"/>
-  -->
-  
   <bean id="dataSysListener" class="backoffice.DataSysBO"/>
   <bean id="mobileSysListener" class="backoffice.MobileSysBO"/>
   <bean id="redStrawberryListener" class="backoffice.RedStrawberryBO"/>
@@ -80,12 +65,13 @@
   <bean id="invalidQueueListener" class="middleware.grupo01.listener.InvalidQueueMessageListener" />
   <int:service-activator input-channel="invaliQueueChannel" ref="invalidQueueListener" method="msg"/>
   
+  <!--
   <jms:listener-container concurrency="5-10">
-    <!--<jms:listener destination="DISPACHER_QUEUE" ref="inputQueueListener"/>-->
-    <!--<jms:listener destination="OUT_DISPACHER_QUEUE" ref="outputQueueListener"/>-->
-    <!--<jms:listener destination="INVALID_QUEUE" ref="invalidQueueListener" method="msg"/>-->
+    <jms:listener destination="DISPACHER_QUEUE" ref="inputQueueListener"/>
+    <jms:listener destination="OUT_DISPACHER_QUEUE" ref="outputQueueListener"/>
+    <jms:listener destination="INVALID_QUEUE" ref="invalidQueueListener" method="msg"/>
   </jms:listener-container>
-  
+  -->
   <int:service-activator input-channel="dataSysChannel" ref="dataSysListener" method="receive"/>
   <int:service-activator input-channel="mobileSysChannel" ref="mobileSysListener" method="receive"/>
 
@@ -97,11 +83,6 @@
   <bean id="messageStore" class="org.springframework.integration.store.SimpleMessageStore"/>
   
   <int:channel id="redStrawberryChannel"/>
-<!--  
-  <bean id="aggregator" class="middleware.grupo01.aggregator.Aggregator"/>
-  <bean id="releaser" class="middleware.grupo01.aggregator.Releaser"/>
-  <bean id="correlationer" class="middleware.grupo01.aggregator.Correlationer"/>
--->  
   <int:service-activator input-channel="redStrawberryChannel" ref="redStrawberryListener" method="receive"/> 
   
 </beans>

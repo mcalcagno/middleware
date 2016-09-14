@@ -16,7 +16,6 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathException;
 import javax.xml.xpath.XPathFactory;
 
-import org.springframework.integration.annotation.Splitter;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
@@ -27,8 +26,7 @@ public class SplitMessageByCategory {
 	
 	public List<String> split(String msg) {
 		System.out.println("*************************");
-		System.out.println("*****SPLITER INICIO******");
-		System.out.println("*************************");
+		System.out.println("****SPLITING MESSAGE*****");
 		List<String> list = new ArrayList<String>();
         try {
 			String transform = XSLTTransformer.transformOrdenToItemOrden(msg);

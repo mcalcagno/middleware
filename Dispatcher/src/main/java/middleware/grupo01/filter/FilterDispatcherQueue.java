@@ -11,7 +11,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
-public class FilterDispatcherQueue /*implements MessageSelector*/ {
+public class FilterDispatcherQueue {
 
 	private static final String ORDEN_MONTO_EXP = "/Orden/Facturacion/Monto";
 	private static final String ORDEN_CANT_EXP = "/Orden/Item/Cantidad";
@@ -22,8 +22,7 @@ public class FilterDispatcherQueue /*implements MessageSelector*/ {
 	
 	public boolean isValid(String msg){
 		System.out.println("*************************");
-		System.out.println("******FILTER INICIO******");
-		System.out.println("*************************");
+		System.out.println("****FILTERING MESSAGE*****");
 		boolean ret = false;
 		try {
 			XPath xpath = XPathFactory.newInstance().newXPath();
