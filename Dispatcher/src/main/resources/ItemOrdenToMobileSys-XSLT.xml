@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+<xsl:template match="/ItemOrden">
+<xsl:variable name="IdOrden" select="IdOrden"/>
+<xsl:variable name="IdItem" select="IdItem"/>
+<xsl:variable name="FechaOrden" select="FechaOrden"/>
+
+ <xsl:variable name="Fecha" select="substring-before($FechaOrden, 'T')" />
+ <xsl:variable name="Anio" select="substring-before($Fecha,'-')"/>
+ <xsl:variable name="AnioAfter" select="substring-after($Fecha,'-')"/>
+ <xsl:variable name="Mes" select="substring-before($AnioAfter,'-')"/>
+ <xsl:variable name="Dia" select="substring-after($AnioAfter,'-')"/>
+ 
+ <xsl:variable name ="FechaAfter" select="substring-after($FechaOrden, 'T')" />
+ <xsl:variable name ="Hora" select="substring-before($FechaAfter, '.')" />
+
+<ItemMobileSys>
+		<IdCliente><xsl:value-of select="IdCliente"/></IdCliente>
+		<IdProducto><xsl:value-of select="IdProducto"/></IdProducto>
+		<FechaOrden><xsl:value-of select="concat($Dia,'/',$Mes,'/',$Anio,' ',$Hora)"/></FechaOrden>
+		<IdOrdenItem><xsl:value-of select="concat($IdOrden,$IdItem)"/></IdOrdenItem>		
+</ItemMobileSys>
+</xsl:template>
+</xsl:stylesheet>

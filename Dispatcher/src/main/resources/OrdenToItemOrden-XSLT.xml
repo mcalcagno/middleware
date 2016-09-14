@@ -3,11 +3,13 @@
 <xsl:template match="/Orden">
 <xsl:variable name="NroOrden" select="NroOrden"/>
 <xsl:variable name="IdCliente" select="IdCliente"/>
+<xsl:variable name="FecCreacion" select="FecCreacion"/>
 <ItemsOrden>
 	<xsl:for-each select="Item">
 	<ItemOrden>
 		<IdOrden><xsl:value-of select="$NroOrden"/></IdOrden>
 		<IdCliente><xsl:value-of select="$IdCliente"/></IdCliente>
+		<FechaOrden><xsl:value-of select="$FecCreacion"/></FechaOrden>
 		<IdItem><xsl:value-of select="NroItem"/></IdItem>
 		<IdProducto><xsl:value-of select="IdProducto"/></IdProducto>
 		<Cantidad><xsl:value-of select="Cantidad"/></Cantidad>
