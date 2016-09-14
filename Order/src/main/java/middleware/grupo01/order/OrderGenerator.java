@@ -45,7 +45,7 @@ public class OrderGenerator
 		p.setfPago(PaymentXml.EFECTVO);
 		FacturationXml f = new FacturationXml();
 		f.setCuotas(1);
-		f.setMonto(14.0);
+		f.setMonto(15.0);
 		f.setMoneda(CurrencyXml.PESOS);
 		p.setFacturacion(f);
 		ItemXml i = new ItemXml();
@@ -101,7 +101,7 @@ public class OrderGenerator
 	private static String getPurchaseOrderString(PurcharseOrderXml poXml) throws JAXBException{
 		JAXBContext jc = JAXBContext.newInstance(PurcharseOrderXml.class);
 		Marshaller marshaller = jc.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        //marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
         StringWriter stringWriter = new StringWriter();
         marshaller.marshal(poXml, stringWriter);
