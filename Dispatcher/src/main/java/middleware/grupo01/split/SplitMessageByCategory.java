@@ -25,9 +25,11 @@ import middleware.grupo01.xslt.XSLTTransformer;
 
 public class SplitMessageByCategory {
 	
-	@Splitter
 	public List<String> split(String msg) {
-        List<String> list = new ArrayList<String>();
+		System.out.println("*************************");
+		System.out.println("*****SPLITER INICIO******");
+		System.out.println("*************************");
+		List<String> list = new ArrayList<String>();
         try {
 			String transform = XSLTTransformer.transformOrdenToItemOrden(msg);
 			XPath xpath = XPathFactory.newInstance().newXPath();

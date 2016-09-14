@@ -61,11 +61,11 @@
     <int-xml:xpath-expression expression="/ItemOrden/Categoria"/>
     <int-xml:mapping value="1" channel="dataSysChannel"/>
     <int-xml:mapping value="2" channel="mobileSysChannel"/>
-    <int-xml:mapping value="3" channel="redStrawberryChannel"/>
+    <int-xml:mapping value="3" channel="redStrawberrySimpleChannel"/>
   </int-xml:xpath-router>
   <int:channel id="dataSysChannel"/>
   <int:channel id="mobileSysChannel"/>
-  <int:channel id="redStrawberryChannel"/>
+  <int:channel id="redStrawberrySimpleChannel"/>
   
   <!-- 
   <int:service-activator id="serviceTrail1" input-channel="dataSysChannel" ref="dataSysListener"/>
@@ -88,6 +88,20 @@
   
   <int:service-activator input-channel="dataSysChannel" ref="dataSysListener" method="receive"/>
   <int:service-activator input-channel="mobileSysChannel" ref="mobileSysListener" method="receive"/>
-  <int:service-activator input-channel="redStrawberryChannel" ref="redStrawberryListener" method="receive"/>
+
+  <int:aggregator input-channel="redStrawberrySimpleChannel" output-channel="redStrawberryChannel"
+	correlation-strategy-expression="#xpath(payload, '/ItemOrden/Categoria')"
+    release-strategy-expression="size() == 5"
+	expire-groups-upon-completion="true" send-partial-result-on-expiry="true"
+	message-store="messageStore" />
+  <bean id="messageStore" class="org.springframework.integration.store.SimpleMessageStore"/>
+  
+  <int:channel id="redStrawberryChannel"/>
+<!--  
+  <bean id="aggregator" class="middleware.grupo01.aggregator.Aggregator"/>
+  <bean id="releaser" class="middleware.grupo01.aggregator.Releaser"/>
+  <bean id="correlationer" class="middleware.grupo01.aggregator.Correlationer"/>
+-->  
+  <int:service-activator input-channel="redStrawberryChannel" ref="redStrawberryListener" method="receive"/> 
   
 </beans>
