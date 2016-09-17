@@ -14,6 +14,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
+  
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -21,5 +22,47 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+	    <groupId>org.apache.activemq</groupId>
+	    <artifactId>activemq-all</artifactId>
+	    <version>5.14.0</version>
+	</dependency>
+	<dependency>
+	    <groupId>log4j</groupId>
+	    <artifactId>log4j</artifactId>
+	    <version>1.2.17</version>
+	</dependency>
+	<dependency>
+    	<groupId>org.codehaus.mojo</groupId>
+    	<artifactId>xslt-maven-plugin</artifactId>
+    	<version>1.0</version>
+	</dependency>
+
+	 <dependency>
+        <groupId>org.springframework.integration</groupId>
+        <artifactId>spring-integration-core</artifactId>
+        <version>4.1.2.RELEASE</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.integration</groupId>
+        <artifactId>spring-integration-jms</artifactId>
+        <version>4.1.2.RELEASE</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.springframework</groupId>
+    	<artifactId>spring-jms</artifactId>
+    	<version>4.3.2.RELEASE</version>
+	</dependency>
+	<dependency>
+    	<groupId>org.springframework.integration</groupId>
+    	<artifactId>spring-integration-xml</artifactId>
+    	<version>4.3.0.RELEASE</version>
+	</dependency>
+	<dependency>
+    	<groupId>org.springframework.integration</groupId>
+    	<artifactId>spring-integration-stream</artifactId>
+    	<version>4.3.0.RELEASE</version>
+	</dependency>
+	
   </dependencies>
 </project>
