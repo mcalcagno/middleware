@@ -38,9 +38,9 @@
   	<jms-int:channel id="deadLetterChannel" queue-name="DEAD_LETTER_QUEUE"/>
     
 	<jms-int:message-driven-channel-adapter channel="inputMobileSysChannel"
-		concurrent-consumers="5" destination-name="MOBILE_SYS_QUEUE" />
+		concurrent-consumers="5" destination-name="MOBILE_SYS_QUEUE"/>
    		
-	<bean id="mobileSysListener" class="middleware.grupo01.mobilesys.Process"/>
+	<bean id="mobileSysListener" class="middleware.grupo01.mobilesys.MobileSysListener"/>
 	<bean id="errorMobileSysListener" class=" middleware.grupo01.mobilesys.DeadLetterChannelListener"/>
 
 	<int:service-activator input-channel="deadLetterChannel" ref="errorMobileSysListener" method="receive"/> 

@@ -1,14 +1,13 @@
 package middleware.grupo01.mobilesys;
 
 
-public class Process {
+public class MobileSysListener {
 
 	public void receive(String message) {
-		
-				
-				System.out.println("Procesando MobileSys: " );
-				//throw new RuntimeException("Prueba");
-				
+		System.out.println("*************************");
+		System.out.println("******RECIVE MESSAGE*****");
+		//throw new RuntimeException("ERROR PROCESSING MSG");
+		System.out.println(message);
 	}
 	
 }
