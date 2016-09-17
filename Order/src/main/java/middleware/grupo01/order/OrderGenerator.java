@@ -45,7 +45,7 @@ public class OrderGenerator
 		p.setfPago(PaymentXml.EFECTVO);
 		FacturationXml f = new FacturationXml();
 		f.setCuotas(1);
-		f.setMonto(15.0);
+		f.setMonto(14.0);
 		f.setMoneda(CurrencyXml.PESOS);
 		p.setFacturacion(f);
 		ItemXml i = new ItemXml();

@@ -9,7 +9,9 @@ import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.xml.transform.TransformerException;
 
+import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.activemq.RedeliveryPolicy;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -48,9 +50,7 @@ public class MobileSysBO {
 	}
 	
 	private static void initialize() throws JMSException{
-		
-		AbstractApplicationContext context = new ClassPathXmlApplicationContext("/META-INF/spring/context.xml", Dispatcher.class);
-		ConnectionFactory connectionFactory = (ConnectionFactory)context.getBean("connectionFactory");
+		ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(ActiveMQConnection.DEFAULT_BROKER_URL);
 		connection = connectionFactory.createConnection();
 		connection.start();
 		session = connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
