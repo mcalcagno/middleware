@@ -41,11 +41,20 @@
 		concurrent-consumers="5" destination-name="MOBILE_SYS_QUEUE"/>
    		
 	<bean id="mobileSysListener" class="middleware.grupo01.mobilesys.MobileSysListener"/>
+	<bean id="mobileSysListener2" class="middleware.grupo01.mobilesys.MobileSysListener2"/>
 	<bean id="errorMobileSysListener" class=" middleware.grupo01.mobilesys.DeadLetterChannelListener"/>
 
 	<int:service-activator input-channel="deadLetterChannel" ref="errorMobileSysListener" method="receive"/> 
   
  	<int:service-activator input-channel="inputMobileSysChannel" ref="mobileSysListener"  method="receive">
+		<int:request-handler-advice-chain>
+			<int:retry-advice max-attempts="3" recovery-channel="deadLetterChannel">
+				<int:exponential-back-off initial="1000" multiplier="5.0" maximum="60000" />
+            </int:retry-advice>
+    	</int:request-handler-advice-chain>
+    </int:service-activator>
+    
+    <int:service-activator input-channel="inputMobileSysChannel" ref="mobileSysListener2"  method="receive">
 		<int:request-handler-advice-chain>
 			<int:retry-advice max-attempts="3" recovery-channel="deadLetterChannel">
 				<int:exponential-back-off initial="1000" multiplier="5.0" maximum="60000" />
