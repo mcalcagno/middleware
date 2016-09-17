@@ -21,6 +21,7 @@ public class FilterDispatcherQueue {
 	private static final String ORDEN_SUM_CANTXPREC_EXP = "sum ( /CantidadXPrecio/Item )";
 	//private static final String ORDEN_PRECIO_EXP = "/Orden/Item/Precio";
 	private static final String ORDEN_PAYMENT_EXP = "/Orden/FormaPago";
+	private static final String ORDEN_MONEDA_EXP = "/Orden/Facturacion/Moneda";
 	private static final String ORDEN_CUOTAS_EXP = "/Orden/Facturacion/Cuotas";
 	
 	public boolean isValid(String msg){
@@ -40,16 +41,22 @@ public class FilterDispatcherQueue {
 				(nodePayment.getFirstChild().getNodeValue().equals("X") &&
 					Integer.valueOf(nodeCuotas.getFirstChild().getNodeValue()) > 1)	){
 				
-				Node nodeMonto = (Node) xpath.evaluate(ORDEN_MONTO_EXP, 
+				Node nodeMoneda = (Node) xpath.evaluate(ORDEN_MONEDA_EXP, 
 						new InputSource(new StringReader(msg)), XPathConstants.NODE);
 				
-				Double totLin = (Double) xpath.evaluate(ORDEN_SUM_CANTXPREC_EXP, 
-						new InputSource(new StringReader(XSLTTransformer.transformGetTotalFromOrdenLineas(msg))), 
-						XPathConstants.NUMBER);
-				
-				Double monto = new Double(nodeMonto.getFirstChild().getNodeValue());
-				
-				return monto.equals(new Double(totLin));
+				if(nodeMoneda.getFirstChild().getNodeValue().equals("840") ||
+						nodeMoneda.getFirstChild().getNodeValue().equals("858")){
+					Node nodeMonto = (Node) xpath.evaluate(ORDEN_MONTO_EXP, 
+							new InputSource(new StringReader(msg)), XPathConstants.NODE);
+					
+					Double totLin = (Double) xpath.evaluate(ORDEN_SUM_CANTXPREC_EXP, 
+							new InputSource(new StringReader(XSLTTransformer.transformGetTotalFromOrdenLineas(msg))), 
+							XPathConstants.NUMBER);
+					
+					Double monto = new Double(nodeMonto.getFirstChild().getNodeValue());
+					
+					return monto.equals(new Double(totLin));
+				}
 			}
 		}catch (XPathExpressionException e) {
 			e.printStackTrace();

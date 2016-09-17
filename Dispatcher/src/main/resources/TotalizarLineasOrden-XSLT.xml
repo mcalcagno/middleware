@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+	<xsl:template match="/Orden">
+		<CantidadXPrecio>
+			<xsl:for-each select="Item">
+				<Item><xsl:value-of select="Precio * Cantidad"/></Item>
+			</xsl:for-each>
+		</CantidadXPrecio>
+	</xsl:template>
+</xsl:stylesheet>
