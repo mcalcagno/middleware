@@ -7,7 +7,7 @@ public class Process {
 		
 				
 				System.out.println("Procesando MobileSys: " );
-				throw new RuntimeException("Prueba");
+				//throw new RuntimeException("Prueba");
 				
 	}
 	

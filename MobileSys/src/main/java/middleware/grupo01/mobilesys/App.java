@@ -8,11 +8,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *
  */
 public class App 
+
 {
     public static void main( String[] args )
     {
     	System.out.println("*************************");
-		System.out.println("****DISPATCHER INICIO****");
+		System.out.println("****MOBILESYS INICIO****");
     	AbstractApplicationContext context = new ClassPathXmlApplicationContext("/META-INF/spring/context.xml", App.class);
     }
 }
