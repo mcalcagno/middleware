@@ -1,15 +1,13 @@
 package backoffice;
 
+import middleware.grupo01.datasys.DataSysPersistor;
+
 public class DataSysBO {
 
 	public void receive(String message) {
-		//try {
-			//@SuppressWarnings(value="unused")
-			//TextMessage msg = (TextMessage) message;
-			System.out.println("DataSysBO Consumed message: " );
-		/*} catch (JMSException e) {
-			e.printStackTrace();
-		}*/
+		System.out.println("Realizando comunicacion con DataSys...");
+		DataSysPersistor pers = new DataSysPersistor();
+		pers.persistOrder(message);
 	}
 	
 	
