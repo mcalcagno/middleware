@@ -62,21 +62,15 @@
 			<version>4.3.0.RELEASE</version>
 		</dependency>
 		<dependency>
-			<groupId>RedStrawberry</groupId>
-			<artifactId>RedStrawberry</artifactId>
-			<version>1.0</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>DataSys</groupId>
-			<artifactId>DataSys</artifactId>
-			<version>1.0</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
 		</dependency>
+		<dependency>
+		   <groupId>org.postgresql</groupId>
+		   <artifactId>postgresql</artifactId>
+   			<version>9.4.1210.jre7</version>
+		</dependency>
+		
 	</dependencies>
 </project>

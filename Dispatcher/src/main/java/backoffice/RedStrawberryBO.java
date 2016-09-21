@@ -5,9 +5,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import middleware.grupo01.services.IServicioRedStrawberry;
-import middleware.grupo01.services.ServicioRedStrawberry;
-
 import javax.xml.namespace.QName;
 import javax.xml.ws.WebServiceRef;
 import javax.xml.ws.BindingProvider;
@@ -32,7 +29,7 @@ public class RedStrawberryBO {
 		}
 
 	public static void receive(List<String> message) throws MalformedURLException {
-		URL url = new URL("http://localhost:8080/RedStrawberry/ServicioRedStrawberry?wsdl");
+		/*URL url = new URL("http://localhost:8080/RedStrawberry/ServicioRedStrawberry?wsdl");
 		QName qname = new QName("http://services.grupo01.middleware/", "ServicioRedStrawberryService");
 		Service service = Service.create(url, qname);
 		IServicioRedStrawberry strawBerry = service.getPort(IServicioRedStrawberry.class);
@@ -41,6 +38,7 @@ public class RedStrawberryBO {
         prov.getRequestContext().put(BindingProvider.PASSWORD_PROPERTY, "admin");
 		String[] string = message.toArray(new String[0]);
 		strawBerry.recibirOC(string);
+		*/
 	}
 	
 //	static {

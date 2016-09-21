@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+<xsl:template match="/ItemOrden">
+<xsl:variable name="IdOrden" select="IdOrden"/>
+<xsl:variable name="IdItem" select="IdItem"/>
+
+<DataSysItemOrden>
+		<IdProducto><xsl:value-of select="IdProducto"/></IdProducto>
+		<Cantidad><xsl:value-of select="Cantidad"/></Cantidad>
+		<IdOrden><xsl:value-of select="IdOrden"/></IdOrden>
+		<IdItem><xsl:value-of select="IdItem"/></IdItem>
+		<IdCliente><xsl:value-of select="IdCliente"/></IdCliente>
+		
+		
+</DataSysItemOrden>
+</xsl:template>
+</xsl:stylesheet>

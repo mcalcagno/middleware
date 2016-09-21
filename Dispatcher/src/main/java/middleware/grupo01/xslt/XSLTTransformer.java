@@ -57,4 +57,20 @@ public class XSLTTransformer {
 	    return writer.toString();
 	}
 	
+	public static String transformItemOrdenToDataSys(String input) throws TransformerException{
+
+		StreamSource source = new StreamSource(new StringReader(input));
+	    StreamSource stylesource = new StreamSource(new File("src\\main\\resources\\ItemOrdenToDataSys-XSLT.xml"));
+
+	    StringWriter writer = new StringWriter();
+	    
+	    TransformerFactory factory = TransformerFactory.newInstance();
+	    Transformer transformer = factory.newTransformer(stylesource);
+	    StreamResult result = new StreamResult(writer);
+	    transformer.transform(source, result);
+
+	    return writer.toString();
+	}
+	
+	
 }
