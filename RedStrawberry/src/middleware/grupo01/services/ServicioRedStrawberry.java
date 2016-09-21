@@ -17,13 +17,15 @@ public class ServicioRedStrawberry implements IServicioRedStrawberry{
 	WebServiceContext wsctx;
 
 	@Override
-	public void recibirOC(String[] lst){
+	public void recibirOC(String ordenes){
 		System.out.println("Recibiendo ordenes de compra...");
 		try{
 			if(!isUserAuthenticated()){
 				throw new Exception("Acceso no autorizado.");
 			}
-			RedStrawBerryParser.unmarshallListOfOrders(lst);
+			System.out.println("Procesando ordenes de compra...");
+			System.out.println(ordenes);
+			System.out.println("Ordenes de compra procesadas...");
 		}
 		catch (Exception ex){
 			try {
@@ -41,7 +43,7 @@ public class ServicioRedStrawberry implements IServicioRedStrawberry{
 
 		ArrayList list = (ArrayList) http_headers.get("Authorization");
 		if (list == null || list.size() == 0) {
-			throw new RuntimeException("Fallo en la Autenticacion!");
+			throw new RuntimeException("Ocurrio un fallo en la Autenticacion!");
 		}
 
 		String userpass = (String) list.get(0);
@@ -56,15 +58,53 @@ public class ServicioRedStrawberry implements IServicioRedStrawberry{
 			username = credentials.substring(0, p);
 			password = credentials.substring(p + 1);
 		} else {
-			throw new RuntimeException("Fallo en la Autenticación!");
+			throw new RuntimeException("Ocurrio un fallo en la Autenticación!");
 		}
-		// This should be changed to a DB / Ldap authentication check
+		
 		if (username.equals("admin") && password.equals("admin")) {
 			System.out.println("============== Autenticacion OK =============");
 			return true;
 		} else {
-			throw new RuntimeException("Fallo en la Autenticación!");
+			throw new RuntimeException("Ocurrio un fallo en la Autenticación!");
 		}
 	}
+//	public static void main(String [] args)
+//	{
+//		String orden = new String("<?xml version='1.0 encoding=UTF-8'?>"+
+//"<ItemOrdenStrawberry xmlns:date='http://exslt.org/dates-and-times'>"+
+//	"<ItemOrdenStrawberry>"+
+//		"<IdProducto>2</IdProducto>"+
+//		"<Cantidad>3</Cantidad>"+
+//		"<IdTransacion>2:3</IdTransacion>"+
+//		"<FechayHora>2016-09-20T20:39:51-03:00</FechayHora>"+
+//	"</ItemOrdenStrawberry>"+
+//	"<ItemOrdenStrawberry>"+
+//		"<IdProducto>2</IdProducto>"+
+//		"<Cantidad>3</Cantidad>"+
+//		"<IdTransacion>3:3</IdTransacion>"+
+//		"<FechayHora>2016-09-20T20:39:51-03:00</FechayHora>"+
+//	"</ItemOrdenStrawberry>"+
+//	"<ItemOrdenStrawberry>"+
+//		"<IdProducto>2</IdProducto>"+
+//		"<Cantidad>3</Cantidad>"+
+//		"<IdTransacion>4:3</IdTransacion>"+
+//		"<FechayHora>2016-09-20T20:39:51-03:00</FechayHora>"+
+//	"</ItemOrdenStrawberry>"+
+//	"<ItemOrdenStrawberry>"+
+//		"<IdProducto>2</IdProducto>"+
+//		"<Cantidad>3</Cantidad>"+
+//		"<IdTransacion>0:3</IdTransacion>"+
+//		"<FechayHora>2016-09-20T20:39:51-03:00</FechayHora>"+
+//	"</ItemOrdenStrawberry>"+
+//	"<ItemOrdenStrawberry>"+
+//		"<IdProducto>2</IdProducto>"+
+//		"<Cantidad>3</Cantidad>"+
+//		"<IdTransacion>1:3</IdTransacion>"+
+//		"<FechayHora>2016-09-20T20:39:51-03:00</FechayHora>"+
+//	"</ItemOrdenStrawberry>"+
+//"</ItemOrdenStrawberry>");
+//		ServicioRedStrawberry serv = new ServicioRedStrawberry();
+//		serv.recibirOC(serv);
+//	}
 
 }

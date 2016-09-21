@@ -1,5 +1,6 @@
 package middleware.grupo01.services;
 
+import javax.jws.Oneway;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
@@ -11,6 +12,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 public interface IServicioRedStrawberry {
 	
 	@WebMethod
-    void recibirOC(String[] lst);
+	@Oneway
+    void recibirOC(String ordenes);
 		
 }
