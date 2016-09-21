@@ -29,7 +29,7 @@ public class DataSysBO {
 		System.out.println("Realizando comunicacion con DataSys...");
 		String messageDataSys;
 		try {
-			messageDataSys = XSLTTransformer.transformItemOrdenToDataSys(message);
+			messageDataSys = XSLTTransformer.transform(message,XSLTTransformer.TO_DATASYS);
 			persistOrder(messageDataSys);
 		} catch (TransformerException e) {
 			

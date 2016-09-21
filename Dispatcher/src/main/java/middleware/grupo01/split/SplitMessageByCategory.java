@@ -29,7 +29,7 @@ public class SplitMessageByCategory {
 		System.out.println("****SPLITING MESSAGE*****");
 		List<String> list = new ArrayList<String>();
         try {
-			String transform = XSLTTransformer.transformOrdenToItemOrden(msg);
+			String transform = XSLTTransformer.transform(msg,XSLTTransformer.TO_ITEMORDEN);
 			XPath xpath = XPathFactory.newInstance().newXPath();
 			NodeList nodes = (NodeList) xpath.evaluate("/ItemsOrden/ItemOrden", 
 					new InputSource(new StringReader(transform)), XPathConstants.NODESET);

@@ -79,8 +79,11 @@
 	correlation-strategy-expression="#xpath(payload, '/ItemOrden/Categoria')"
     release-strategy-expression="size() == 5"
 	expire-groups-upon-completion="true" send-partial-result-on-expiry="true"
-	message-store="messageStore" />
+	message-store="messageStore" 
+	ref="aggregator" method="aggregate"/>
   <bean id="messageStore" class="org.springframework.integration.store.SimpleMessageStore"/>
+  
+  <bean id="aggregator" class="middleware.grupo01.aggregator.Aggregator"/>
   
   <int:channel id="redStrawberryChannel"/>
   <int:service-activator input-channel="redStrawberryChannel" ref="redStrawberryListener" method="receive"/> 

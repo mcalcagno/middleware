@@ -30,7 +30,7 @@ public class MobileSysBO {
 		//try {
 
 			try {
-				String transform = XSLTTransformer.transformItemOrdenToMobileSys(message);
+				String transform = XSLTTransformer.transform(message,XSLTTransformer.TO_MOBILESYS);
 				System.out.println("MobileSysBO Consumed message: " );
 				
 				initialize();

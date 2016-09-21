@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+xmlns:date="http://exslt.org/dates-and-times" version="1.0">
+<xsl:template match="/ItemsOrden">
+	<ItemOrdenStrawberry>
+		<xsl:for-each select="ItemOrden">
+			<ItemOrdenStrawberry>
+				<IdProducto><xsl:value-of select="IdProducto"/></IdProducto>
+				<Cantidad><xsl:value-of select="Cantidad"/></Cantidad>
+				<IdTransacion><xsl:value-of select="IdOrden"/>:<xsl:value-of select="IdItem"/></IdTransacion>
+				<FechayHora><xsl:value-of select="date:date-time()"/></FechayHora>				
+			</ItemOrdenStrawberry>
+		</xsl:for-each>
+	</ItemOrdenStrawberry>
+</xsl:template>
+</xsl:stylesheet>
+

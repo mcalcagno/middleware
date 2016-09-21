@@ -12,11 +12,17 @@ import javax.xml.transform.stream.StreamSource;
 
 
 public class XSLTTransformer {
+	
+	public static final String TO_DATASYS = "ItemOrdenToDataSys-XSLT.xml";
+	public static final String TO_MOBILESYS = "ItemOrdenToMobileSys-XSLT.xml";
+	public static final String TO_REDSTRAWBERRY = "ItemsOrdenToRedStrawberry-XSLT.xml";
+	public static final String TO_ITEMORDEN = "OrdenToItemOrden-XSLT.xml";
+	public static final String TO_TOTALIZAR = "TotalizarLineasOrden-XSLT.xml";
 
-	public static String transformOrdenToItemOrden(String input) throws TransformerException{
+	public static String transform(String input,String template) throws TransformerException{
 
 		StreamSource source = new StreamSource(new StringReader(input));
-	    StreamSource stylesource = new StreamSource(new File("src\\main\\resources\\OrdenToItemOrden-XSLT.xml"));
+	    StreamSource stylesource = new StreamSource(new File("src\\main\\resources\\"+template));
 
 	    StringWriter writer = new StringWriter();
 	    
@@ -27,50 +33,5 @@ public class XSLTTransformer {
 
 	    return writer.toString();
 	}
-	
-	public static String transformItemOrdenToMobileSys(String input) throws TransformerException{
 
-		StreamSource source = new StreamSource(new StringReader(input));
-	    StreamSource stylesource = new StreamSource(new File("src\\main\\resources\\ItemOrdenToMobileSys-XSLT.xml"));
-
-	    StringWriter writer = new StringWriter();
-	    
-	    TransformerFactory factory = TransformerFactory.newInstance();
-	    Transformer transformer = factory.newTransformer(stylesource);
-	    StreamResult result = new StreamResult(writer);
-	    transformer.transform(source, result);
-
-	    return writer.toString();
-	}
-	
-	public static String transformGetTotalFromOrdenLineas(String input) throws TransformerException{
-		StreamSource source = new StreamSource(new StringReader(input));
-	    StreamSource stylesource = new StreamSource(new File("src\\main\\resources\\TotalizarLineasOrden-XSLT.xml"));
-
-	    StringWriter writer = new StringWriter();
-	    
-	    TransformerFactory factory = TransformerFactory.newInstance();
-	    Transformer transformer = factory.newTransformer(stylesource);
-	    StreamResult result = new StreamResult(writer);
-	    transformer.transform(source, result);
-
-	    return writer.toString();
-	}
-	
-	public static String transformItemOrdenToDataSys(String input) throws TransformerException{
-
-		StreamSource source = new StreamSource(new StringReader(input));
-	    StreamSource stylesource = new StreamSource(new File("src\\main\\resources\\ItemOrdenToDataSys-XSLT.xml"));
-
-	    StringWriter writer = new StringWriter();
-	    
-	    TransformerFactory factory = TransformerFactory.newInstance();
-	    Transformer transformer = factory.newTransformer(stylesource);
-	    StreamResult result = new StreamResult(writer);
-	    transformer.transform(source, result);
-
-	    return writer.toString();
-	}
-	
-	
 }

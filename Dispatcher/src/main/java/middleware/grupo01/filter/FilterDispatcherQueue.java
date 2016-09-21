@@ -8,6 +8,7 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.springframework.integration.xml.transformer.XsltPayloadTransformer;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -50,7 +51,7 @@ public class FilterDispatcherQueue {
 							new InputSource(new StringReader(msg)), XPathConstants.NODE);
 					
 					Double totLin = (Double) xpath.evaluate(ORDEN_SUM_CANTXPREC_EXP, 
-							new InputSource(new StringReader(XSLTTransformer.transformGetTotalFromOrdenLineas(msg))), 
+							new InputSource(new StringReader(XSLTTransformer.transform(msg,XSLTTransformer.TO_TOTALIZAR))), 
 							XPathConstants.NUMBER);
 					
 					Double monto = new Double(nodeMonto.getFirstChild().getNodeValue());
