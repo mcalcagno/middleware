@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<endpoints xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime"
+	version="2.0">
+	
+	<endpoint name="ConsultaEntradasDisponibles"
+		implementation="grupo01.ws.ced.ConsultaEntradasDisponibles"
+		url-pattern="/consultaEntradasDisponibles" />
+		
+	<endpoint name="ReservaEntradas"
+		implementation="grupo01.ws.rde.ReservaEntradas"
+		url-pattern="/reservaEntradas" />
+		
+	<endpoint name="ConsultaEstadoReserva"
+		implementation="grupo01.ws.cer.ConsultaEstadoReserva"
+		url-pattern="/consultaEstadoReserva" />	
+			
+	<endpoint name="ConfirmacionReservaVentaEntradas"
+		implementation="grupo01.ws.crve.ConfirmacionReservaVentaEntradas"
+		url-pattern="/confirmacionReservaVentaEntradas" />	
+		
+	<endpoint name="AnulacionVentaEntradas"
+		implementation="grupo01.ws.ave.AnulacionVentaEntradas"
+		url-pattern="/anulacionVentaEntradas" />
+		
+</endpoints>
