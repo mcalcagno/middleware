@@ -11,13 +11,11 @@
 			<property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/TicketInco"/>
 			<property name="hibernate.connection.user" value="admin"/>
 			<property name="hibernate.connection.password" value="admin"/>
-			<property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+			<property name="hibernate.hbm2ddl.auto" value="update"/>
 			<property name="hibernate.connection.autocommit" value="true"/>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL82Dialect"/>
 
 	      	<!--<property name="hibernate.hbm2ddl.import_files" value="init_data.sql"/>-->
-
-	      	<property name="hibernate.transaction.flush_before_completion" value="true"/> 
 			
 		</properties>
 	</persistence-unit>

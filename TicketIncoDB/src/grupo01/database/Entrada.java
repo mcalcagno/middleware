@@ -37,7 +37,7 @@ public class Entrada {
 		this.estado = estado;
 	}
 
-	private enum Estado{
+	public enum Estado{
 		LIBRE,CONFIRMADA,
 	}
 
