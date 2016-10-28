@@ -1,0 +1,19 @@
+<xs:schema xmlns:tns="http://impl.ws.grupo01/" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified" targetNamespace="http://impl.ws.grupo01/" version="1.0">
+
+  <xs:element name="consultarEntradasDisponibles" type="tns:consultarEntradasDisponibles"/>
+
+  <xs:element name="consultarEntradasDisponiblesResponse" type="tns:consultarEntradasDisponiblesResponse"/>
+
+  <xs:complexType name="consultarEntradasDisponibles">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarEntradasDisponiblesResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>

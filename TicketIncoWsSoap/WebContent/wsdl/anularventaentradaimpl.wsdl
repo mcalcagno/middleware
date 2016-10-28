@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="AnularVentaEntradaService" targetNamespace="http://ws.grupo01/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://ws.grupo01/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+<schema xmlns="http://www.w3.org/2001/XMLSchema">
+  <import namespace="http://ws.grupo01/" schemaLocation="anularventaentradaimpl_schema1.xsd"/>
+</schema>
+  </wsdl:types>
+  <wsdl:message name="anularVentaEntradaResponse">
+    <wsdl:part name="parameters" element="tns:anularVentaEntradaResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="anularVentaEntrada">
+    <wsdl:part name="parameters" element="tns:anularVentaEntrada">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="AnularVentaEntradaImpl">
+    <wsdl:operation name="anularVentaEntrada">
+      <wsdl:input name="anularVentaEntrada" message="tns:anularVentaEntrada">
+    </wsdl:input>
+      <wsdl:output name="anularVentaEntradaResponse" message="tns:anularVentaEntradaResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AnularVentaEntradaServiceSoapBinding" type="tns:AnularVentaEntradaImpl">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="anularVentaEntrada">
+      <soap:operation soapAction="urn:AnularVentaEntrada" style="document"/>
+      <wsdl:input name="anularVentaEntrada">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="anularVentaEntradaResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AnularVentaEntradaService">
+    <wsdl:port name="AnularVentaEntradaPort" binding="tns:AnularVentaEntradaServiceSoapBinding">
+      <soap:address location="http://localhost:9090/AnularVentaEntradaPort"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

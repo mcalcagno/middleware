@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="ReservarEntradasImplService" targetNamespace="http://impl.ws.grupo01/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://impl.ws.grupo01/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+<schema xmlns="http://www.w3.org/2001/XMLSchema">
+  <import namespace="http://impl.ws.grupo01/" schemaLocation="reservarentradasimpl_schema1.xsd"/>
+</schema>
+  </wsdl:types>
+  <wsdl:message name="reservarEntradasResponse">
+    <wsdl:part name="parameters" element="tns:reservarEntradasResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="reservarEntradas">
+    <wsdl:part name="parameters" element="tns:reservarEntradas">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ReservarEntradasImpl">
+    <wsdl:operation name="reservarEntradas">
+      <wsdl:input name="reservarEntradas" message="tns:reservarEntradas">
+    </wsdl:input>
+      <wsdl:output name="reservarEntradasResponse" message="tns:reservarEntradasResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ReservarEntradasImplServiceSoapBinding" type="tns:ReservarEntradasImpl">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="reservarEntradas">
+      <soap:operation soapAction="urn:ReservarEntradas" style="document"/>
+      <wsdl:input name="reservarEntradas">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="reservarEntradasResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ReservarEntradasImplService">
+    <wsdl:port name="ReservarEntradasImplPort" binding="tns:ReservarEntradasImplServiceSoapBinding">
+      <soap:address location="http://localhost:9090/ReservarEntradasImplPort"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
