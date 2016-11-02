@@ -43,23 +43,23 @@
 		</jaxws:features>
 	</jaxws:endpoint>
 	
-	<bean id="WSS4JInInterceptor_ENCRIPTAR"  class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+	   <bean id="WSS4JInInterceptor_ENCRIPTAR"  class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
 	    <constructor-arg>
 	        <map>
 	            <entry key="action" value="Encrypt"/>
-	            <!-- <entry key="decryptionPropFile" value="server_sign_enc.properties"/> -->
-            	<!-- <entry key="encryptionKeyIdentifier" value="grupo01"/> -->
-            	<!-- <entry key="ws-security.encryption.properties" value="server_sign_enc.properties"/> -->
+	            <entry key="decryptionPropFile" value="server_sign_enc.properties"/> 
+            	 <entry key="encryptionKeyIdentifier" value="grupo01"/> 
+            	<entry key="ws-security.encryption.properties" value="server_sign_enc.properties"/> 
 				<entry key="ws-security.signature.properties" value="server_sign_enc.properties"/>
-            	<!-- <entry key="encryptionParts" value="{Content}{http://schemas.xmlsoap.org/soap/envelope/}Body"/> -->
-                <entry key="passwordCallbackRef">
+            	 <entry key="encryptionParts" value="{Content}{http://schemas.xmlsoap.org/soap/envelope/}Body"/> 
+            	<entry key="passwordCallbackRef">
 	                <ref bean="passwordCallback"/>
 	            </entry>
             	
         	</map>
     	</constructor-arg>
 	</bean>
-	
+	  
 	<jaxws:endpoint xmlns:tns="http://ws.grupo01/" id="confirmarreservaentradas"
 		implementor="grupo01.ws.impl.ConfirmarReservaEntradasImpl"
 		wsdlLocation="wsdl/confirmarreservaentradasimpl.wsdl" endpointName="tns:ConfirmarReservaEntradasPort"
@@ -67,12 +67,12 @@
 		<jaxws:features>
 			<bean class="org.apache.cxf.feature.LoggingFeature" />
 		</jaxws:features>		
-		
+	
 		<jaxws:inInterceptors>
 			<bean class="org.apache.cxf.binding.soap.saaj.SAAJInInterceptor"/>
 			<ref bean="WSS4JInInterceptor_ENCRIPTAR"/>
 		</jaxws:inInterceptors>
-		
+
 	</jaxws:endpoint>
 	
 	<jaxws:endpoint xmlns:tns="http://impl.ws.grupo01/" id="consultarentradas"

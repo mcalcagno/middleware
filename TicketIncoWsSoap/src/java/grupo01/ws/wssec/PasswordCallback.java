@@ -13,11 +13,20 @@ public class PasswordCallback  implements CallbackHandler {
  
         WSPasswordCallback pc = (WSPasswordCallback) callbacks[0];
  
-        if (pc.getIdentifier().equals("grupo01")) {
-           if (!pc.getPassword().equals("grupo01")) {
-                System.out.println("Credenciales Incorrectas");
-           }
+        if (pc.getUsage() == WSPasswordCallback.SIGNATURE
+				|| pc.getUsage() == WSPasswordCallback.DECRYPT){
+
+			if (pc.getIdentifier().equals("grupo01")){
+				pc.setPassword("grupo01");
+			}
         }
-    }
+        
+        
+        //if (pc.getIdentifier().equals("grupo01")) {
+           //if (!pc.getPassword().equals("grupo01")) {
+           //     System.out.println("Credenciales Incorrectas");
+           //}
+        }
+    
  
 }
