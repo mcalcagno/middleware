@@ -15,7 +15,7 @@ public class AnularVentaEntradaImpl implements AnularVentaEntrada{
 
 	@WebMethod(operationName = "anularVentaEntrada", action = "urn:AnularVentaEntrada")
 	@Override
-	public void anularVentaEntrada(@WebParam(name = "espetaculo") String espetaculo) {
+	public void anularVentaEntrada(@WebParam(name = "espectaculo") String espectaculo) {
 		// TODO Auto-generated method stub
 		
 	}

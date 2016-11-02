@@ -15,7 +15,7 @@ public class ConsultarEntradasImpl implements ConsultarEntradas{
 
 	@WebMethod(operationName = "consultarEntradasDisponibles", action = "urn:ConsultarEntradasDisponibles")
 	@Override
-	public Integer consultarEntradasDisponibles(@WebParam(name = "arg0") String espetaculo) {
+	public Integer consultarEntradasDisponibles(@WebParam(name = "espectaculo") String espectaculo) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -5,6 +5,8 @@
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
 	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
 
+<bean id="passwordCallback" class="grupo01.ws.wssec.PasswordCallback"/>
+
 	<jaxws:endpoint xmlns:tns="http://impl.ws.grupo01/" id="reservarentradas"
 		implementor="grupo01.ws.impl.ReservarEntradasImpl" wsdlLocation="wsdl/reservarentradasimpl.wsdl"
 		endpointName="tns:ReservarEntradasImplPort" serviceName="tns:ReservarEntradasImplService"
@@ -12,7 +14,42 @@
 		<jaxws:features>
 			<bean class="org.apache.cxf.feature.LoggingFeature" />
 		</jaxws:features>
+		
+      	<!-- <jaxws:inInterceptors>
+	      <bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+	         <constructor-arg>
+	            <map>
+	               <entry key="action" value="Signature"/>
+	               
+	               <entry key="passwordType" value="PasswordDigest"/>
+	               <entry key="signaturePropFile" value="...."/>
+	                <entry key="passwordCallbackRef">
+	                  <ref bean="passwordCallback"/>
+	               </entry>
+	            </map>
+	         </constructor-arg>
+	      </bean>
+	   </jaxws:inInterceptors> -->
+	   
+		<jaxws:inInterceptors>
+			<bean class="org.apache.cxf.binding.soap.saaj.SAAJInInterceptor"/>
+			<ref bean="WSS4JInInterceptor"/>
+		</jaxws:inInterceptors>	
+		
 	</jaxws:endpoint>
+	
+	<bean id="WSS4JInInterceptor"  class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+	    <constructor-arg>
+	        <map>
+	            <entry key="action" value="Signature"/>
+	            <entry key="passwordCallbackRef">
+	                <ref bean="passwordCallback"/>
+	            </entry>
+	            	<entry key="signaturePropFile" value="server_sign.properties"/>
+        	</map>
+    	</constructor-arg>
+	</bean>
+	
 	<jaxws:endpoint xmlns:tns="http://ws.grupo01/" id="anularventaentrada"
 		implementor="grupo01.ws.impl.AnularVentaEntradaImpl" wsdlLocation="wsdl/anularventaentradaimpl.wsdl"
 		endpointName="tns:AnularVentaEntradaPort" serviceName="tns:AnularVentaEntradaService"
@@ -21,14 +58,16 @@
 			<bean class="org.apache.cxf.feature.LoggingFeature" />
 		</jaxws:features>
 	</jaxws:endpoint>
+	
 	<jaxws:endpoint xmlns:tns="http://ws.grupo01/" id="confirmarreservaentradas"
 		implementor="grupo01.ws.impl.ConfirmarReservaEntradasImpl"
 		wsdlLocation="wsdl/confirmarreservaentradasimpl.wsdl" endpointName="tns:ConfirmarReservaEntradasPort"
 		serviceName="tns:ConfirmarReservaEntradasService" address="/ConfirmarReservaEntradasPort">
 		<jaxws:features>
 			<bean class="org.apache.cxf.feature.LoggingFeature" />
-		</jaxws:features>
+		</jaxws:features>		
 	</jaxws:endpoint>
+	
 	<jaxws:endpoint xmlns:tns="http://impl.ws.grupo01/" id="consultarentradas"
 		implementor="grupo01.ws.impl.ConsultarEntradasImpl" wsdlLocation="wsdl/consultarentradasimpl.wsdl"
 		endpointName="tns:ConsultarEntradasImplPort" serviceName="tns:ConsultarEntradasImplService"

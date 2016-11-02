@@ -15,7 +15,7 @@ public class ConsultarEstadoReservaImpl implements ConsultarEstadoReserva{
 
 	@WebMethod(operationName = "consultarEstadoReserva", action = "urn:ConsultarEstadoReserva")
 	@Override
-	public void consultarEstadoReserva(@WebParam(name = "arg0") String idReserva) {
+	public void consultarEstadoReserva(@WebParam(name = "idReserva") String idReserva) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -2,5 +2,5 @@ package grupo01.ws.interfaces;
 
 public interface ConsultarEntradas {
 
-	Integer consultarEntradasDisponibles(String espetaculo);
+	Integer consultarEntradasDisponibles(String espectaculo);
 }

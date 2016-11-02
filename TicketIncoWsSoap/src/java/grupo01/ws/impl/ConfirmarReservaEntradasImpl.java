@@ -15,9 +15,8 @@ public class ConfirmarReservaEntradasImpl implements ConfirmarReservaEntradas{
 
 	@WebMethod(operationName = "confirmarReservaVenta", action = "urn:ConfirmarReservaVenta")
 	@Override
-	public void confirmarReservaVenta(@WebParam(name = "arg0") String idReserva) {
-		// TODO Auto-generated method stub
-		
+	public void confirmarReservaVenta(@WebParam(name = "idReserva") String idReserva) {
+		System.out.println("llego");		
 	}
 
 	

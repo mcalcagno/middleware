@@ -15,7 +15,7 @@ public class ReservarEntradasImpl implements ReservarEntradas{
 
 	@WebMethod(operationName = "reservarEntradas", action = "urn:ReservarEntradas")
 	@Override
-	public String reservarEntradas(@WebParam(name = "espetaculo") String espetaculo) {
+	public String reservarEntradas(@WebParam(name = "espectaculo") String espectaculo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
