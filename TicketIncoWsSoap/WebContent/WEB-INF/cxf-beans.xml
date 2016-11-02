@@ -26,9 +26,10 @@
 	    <constructor-arg>
 	        <map>
 	            <entry key="action" value="Signature"/>
-	            <entry key="passwordCallbackRef">
+	            <!-- <entry key="passwordCallbackRef">
 	                <ref bean="passwordCallback"/>
 	            </entry>
+	             -->
             	<entry key="signaturePropFile" value="server_sign.properties"/>
         	</map>
     	</constructor-arg>
@@ -48,10 +49,6 @@
 	        <map>
 	            <entry key="action" value="Encrypt"/>
 	            <entry key="decryptionPropFile" value="server_sign_enc.properties"/> 
-            	 <entry key="encryptionKeyIdentifier" value="grupo01"/> 
-            	<entry key="ws-security.encryption.properties" value="server_sign_enc.properties"/> 
-				<entry key="ws-security.signature.properties" value="server_sign_enc.properties"/>
-            	 <entry key="encryptionParts" value="{Content}{http://schemas.xmlsoap.org/soap/envelope/}Body"/> 
             	<entry key="passwordCallbackRef">
 	                <ref bean="passwordCallback"/>
 	            </entry>
