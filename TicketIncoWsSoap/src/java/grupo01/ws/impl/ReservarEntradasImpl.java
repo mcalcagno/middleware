@@ -17,7 +17,7 @@ public class ReservarEntradasImpl implements ReservarEntradas{
 	@Override
 	public String reservarEntradas(@WebParam(name = "espectaculo") String espectaculo) {
 		// TODO Auto-generated method stub
-		return null;
+		return "SABELO COLO";
 	}
 
 	
