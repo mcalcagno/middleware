@@ -40,7 +40,7 @@
 		endpointName="tns:AnularVentaEntradaPort" serviceName="tns:AnularVentaEntradaService"
 		address="/AnularVentaEntradaPort">
 		<jaxws:features>
-			<bean class="org.apache.cxf.feature.LoggingFeature" />
+			<bean class="org.apache.cxf.feature.LoggingFeature" />			
 		</jaxws:features>
 	</jaxws:endpoint>
 	
@@ -63,11 +63,13 @@
 		serviceName="tns:ConfirmarReservaEntradasService" address="/ConfirmarReservaEntradasPort">
 		<jaxws:features>
 			<bean class="org.apache.cxf.feature.LoggingFeature" />
+			 <wsa:addressing xmlns:wsa="http://cxf.apache.org/ws/addressing"/>
 		</jaxws:features>		
 	
 		<jaxws:inInterceptors>
 			<bean class="org.apache.cxf.binding.soap.saaj.SAAJInInterceptor"/>
 			<ref bean="WSS4JInInterceptor_ENCRIPTAR"/>
+			
 		</jaxws:inInterceptors>
 
 	</jaxws:endpoint>
