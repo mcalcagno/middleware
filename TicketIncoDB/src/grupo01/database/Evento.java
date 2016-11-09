@@ -21,7 +21,7 @@ public class Evento {
 	@Id	
 	private Integer id;
 	private Date fecha;
-	@OneToMany(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+	@OneToMany(fetch=FetchType.EAGER,cascade = CascadeType.ALL)
 	@JoinTable(name="evento_horarios",
 		joinColumns=@JoinColumn(name="evento_fk"),
 		inverseJoinColumns=@JoinColumn(name="horario_fk"))

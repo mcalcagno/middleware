@@ -20,7 +20,7 @@ public class Horario {
 	@Id @GeneratedValue
 	private Long id;
 	private String codigo;
-	@OneToMany(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+	@OneToMany(fetch=FetchType.EAGER,cascade = CascadeType.ALL)
 	@JoinTable(name="horario_disponibilidades",
 		joinColumns=@JoinColumn(name="horario_fk"),
 		inverseJoinColumns=@JoinColumn(name="disponibilidad_fk"))
