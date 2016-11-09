@@ -5,11 +5,11 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
   <dependencies>
-  	<!-- <dependency>
+  	<!--<dependency>
   		<groupId>TicketIncoDB</groupId>
 	  	<artifactId>TicketIncoDB</artifactId>
 	  	<version>0.0.1-SNAPSHOT</version>
-  	</dependency> -->
+  	</dependency>-->
   </dependencies>
   <build>
     <sourceDirectory>src</sourceDirectory>
