@@ -13,19 +13,24 @@
 
   <xs:complexType name="consultarEntradasDisponiblesResponse">
     <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:horario"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="Horarios" type="tns:Horario"/>
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="horario">
-    <xs:sequence/>
+  <xs:complexType name="Horario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long"/>
+      <xs:element minOccurs="0" name="Codigo" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="Disponibilidades" type="tns:Disponibilidad"/>
+    </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="disponibilidad">
+  <xs:complexType name="Disponibilidad">
     <xs:sequence>
-      <xs:element minOccurs="0" name="cantidad" type="xs:int"/>
-      <xs:element minOccurs="0" name="precio" type="xs:double"/>
-      <xs:element minOccurs="0" name="sector" type="xs:string"/>
+      <xs:element minOccurs="0" name="Id" type="xs:long"/>
+      <xs:element minOccurs="0" name="Sector" type="xs:string"/>
+      <xs:element minOccurs="0" name="Precio" type="xs:double"/>
+      <xs:element minOccurs="0" name="Cantidad" type="xs:int"/>
     </xs:sequence>
   </xs:complexType>
 
