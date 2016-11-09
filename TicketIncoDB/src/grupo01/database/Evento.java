@@ -1,5 +1,6 @@
 package grupo01.database;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,38 +9,56 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.JoinColumn; 
-import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name="espectaculos")
-public class Espectaculo {
+@Table(name="eventos")
+public class Evento {
 	
-	@Id
-	private String name;
+	@Id	
+	private Integer id;
+	private Date fecha;
 	@OneToMany(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
-	@JoinTable(name="espectaculo_entradas",
-		joinColumns=@JoinColumn(name="espectaculo_fk"),
-		inverseJoinColumns=@JoinColumn(name="entrada_fk"),
-		uniqueConstraints={@UniqueConstraint(columnNames = {"espectaculo_fk", "entrada_fk"})})
-	private List<Entrada> entradas;
+	@JoinTable(name="evento_horarios",
+		joinColumns=@JoinColumn(name="evento_fk"),
+		inverseJoinColumns=@JoinColumn(name="horario_fk"))
+	private List<Horario> horarios;
+	
+	@ManyToMany(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+	@JoinTable(name="evento_reservas",
+		joinColumns=@JoinColumn(name="evento_fk"),
+		inverseJoinColumns=@JoinColumn(name="reserva_fk"))
+	private List<Reserva> reservas;
+	
+	public Evento(){}
 
-	public Espectaculo(){}
-	public Espectaculo(String name){
-		this.name=name;
+	public void setId(Integer id) {
+		this.id=id;
 	}
-	public String getName() {
-		return name;
+
+	public Date getFecha() {
+		return fecha;
 	}
-	public void setName(String name) {
-		this.name = name;
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
 	}
-	public List<Entrada> getEntradas() {
-		if(entradas==null){
-			entradas=new LinkedList<>();
+
+	public List<Horario> getHorarios() {
+		if(horarios==null){
+			horarios=new LinkedList<>();
 		}
-		return entradas;
+		return horarios;
 	}
+	
+	public List<Reserva> getReservas() {
+		if(reservas==null){
+			reservas=new LinkedList<>();
+		}
+		return reservas;
+	}
+	
 }

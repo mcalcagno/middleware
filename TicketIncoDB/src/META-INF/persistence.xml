@@ -2,8 +2,11 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="TicketIncoDB">
 	
-		<class>grupo01.database.Espectaculo</class>
-		<class>grupo01.database.Entrada</class>
+		<class>grupo01.database.Evento</class>
+		<class>grupo01.database.Horario</class>
+		<class>grupo01.database.Disponibilidad</class>
+		<class>grupo01.database.MedioPago</class>
+		<class>grupo01.database.Reserva</class>
 		
 		<properties>
 
@@ -11,7 +14,7 @@
 			<property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/TicketInco"/>
 			<property name="hibernate.connection.user" value="admin"/>
 			<property name="hibernate.connection.password" value="admin"/>
-			<property name="hibernate.hbm2ddl.auto" value="update"/>
+			<property name="hibernate.hbm2ddl.auto" value="create-drop"/>
 			<property name="hibernate.connection.autocommit" value="true"/>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL82Dialect"/>
 
