@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="ConsultarEntradasImplService" targetNamespace="http://impl.ws.grupo01/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://impl.ws.grupo01/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+<schema xmlns="http://www.w3.org/2001/XMLSchema">
+  <import namespace="http://impl.ws.grupo01/" schemaLocation="consultarentradasimpl_schema1.xsd"/>
+</schema>
+  </wsdl:types>
+  <wsdl:message name="consultarEntradasDisponiblesResponse">
+    <wsdl:part name="parameters" element="tns:consultarEntradasDisponiblesResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="consultarEntradasDisponibles">
+    <wsdl:part name="parameters" element="tns:consultarEntradasDisponibles">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ConsultarEntradasImpl">
+    <wsdl:operation name="consultarEntradasDisponibles">
+      <wsdl:input name="consultarEntradasDisponibles" message="tns:consultarEntradasDisponibles">
+    </wsdl:input>
+      <wsdl:output name="consultarEntradasDisponiblesResponse" message="tns:consultarEntradasDisponiblesResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ConsultarEntradasImplServiceSoapBinding" type="tns:ConsultarEntradasImpl">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="consultarEntradasDisponibles">
+      <soap:operation soapAction="urn:ConsultarEntradasDisponibles" style="document"/>
+      <wsdl:input name="consultarEntradasDisponibles">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="consultarEntradasDisponiblesResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ConsultarEntradasImplService">
+    <wsdl:port name="ConsultarEntradasImplPort" binding="tns:ConsultarEntradasImplServiceSoapBinding">
+      <soap:address location="http://localhost:9090/ConsultarEntradasImplPort"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
