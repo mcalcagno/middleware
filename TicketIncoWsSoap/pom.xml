@@ -9,6 +9,16 @@
   		<groupId>TicketIncoDB</groupId>
 	  	<artifactId>TicketIncoDB</artifactId>
 	  	<version>0.0.1-SNAPSHOT</version>
+	  	<exclusions>
+	  		<exclusion>
+	  			<groupId>org.apache.geronimo.specs</groupId>
+	  			<artifactId>geronimo-jta_1.1_spec</artifactId>
+	  		</exclusion>
+	  		<exclusion>
+	  			<groupId>antlr</groupId>
+	  			<artifactId>antlr</artifactId>
+	  		</exclusion>
+	  	</exclusions>
   	</dependency>
   </dependencies>
   <build>

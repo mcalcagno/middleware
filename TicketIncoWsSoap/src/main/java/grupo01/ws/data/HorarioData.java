@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name="Horario")
 public class HorarioData {
@@ -15,6 +16,7 @@ public class HorarioData {
 	private Long id;
 	@XmlElement(name = "Codigo")
 	private String codigo;
+	
 	@XmlElement(name = "Disponibilidades")
 	private List<DisponibilidadData> disponibilidades;
 	public HorarioData(Long id, String codigo, List<DisponibilidadData> disponibilidades) {
@@ -23,6 +25,14 @@ public class HorarioData {
 		this.codigo = codigo;
 		this.disponibilidades = disponibilidades;
 	}
-	public HorarioData(){};
+	public HorarioData(){}
+	public Long getId() {
+		return id;
+	}
+	public List<DisponibilidadData> getDisponibilidades() {
+		return disponibilidades;
+	};
+	
+	
 
 }
