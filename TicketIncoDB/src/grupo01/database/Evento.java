@@ -12,6 +12,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.JoinColumn; 
 
 @Entity
@@ -21,13 +25,15 @@ public class Evento {
 	@Id	
 	private Integer id;
 	private Date fecha;
-	@OneToMany(fetch=FetchType.EAGER,cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinTable(name="evento_horarios",
 		joinColumns=@JoinColumn(name="evento_fk"),
 		inverseJoinColumns=@JoinColumn(name="horario_fk"))
 	private List<Horario> horarios;
 	
-	@ManyToMany(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinTable(name="evento_reservas",
 		joinColumns=@JoinColumn(name="evento_fk"),
 		inverseJoinColumns=@JoinColumn(name="reserva_fk"))

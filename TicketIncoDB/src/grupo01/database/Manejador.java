@@ -19,6 +19,44 @@ public class Manejador {
 		emf.close();
 		return evento;
 	}
-	
+
+	public static void updateCantidadDisponible(Disponibilidad disp, Integer cantidad) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory(persistence_unit);
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		
+		if (disp.getCantidad() >= cantidad){
+			disp.setCantidad(disp.getCantidad() - cantidad);
+		} else {
+			disp.setCantidad(0);
+		}
+		em.merge(disp);
+		em.getTransaction().commit();
+	    em.close();
+	    emf.close();
+	}
+
+	public static Long crearReserva(Evento evento) {
+
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory(persistence_unit);
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		Reserva reserva = new Reserva();
+		try{
+		
+		reserva.setEstado(1);
+		reserva.setEvento(evento);
+		em.persist(reserva);
+		evento.getReservas().add(reserva);
+		em.merge(evento);
+		em.getTransaction().commit();
+	    em.close();
+	    emf.close();
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+	    return reserva.getId();
+		
+	}	
 	
 }
