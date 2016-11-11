@@ -1,0 +1,38 @@
+<xs:schema xmlns:tns="http://impl.ws.grupo01/" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://impl.ws.grupo01/" version="1.0">
+
+  <xs:element name="reservarEntradas" type="tns:reservarEntradas"/>
+
+  <xs:element name="reservarEntradasResponse" type="tns:reservarEntradasResponse"/>
+
+  <xs:complexType name="reservarEntradas">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="idEvento" type="xs:int"/>
+      <xs:element minOccurs="0" name="fecha" type="xs:dateTime"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="horarios" type="tns:Horario"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Horario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long"/>
+      <xs:element minOccurs="0" name="Codigo" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="Disponibilidades" type="tns:Disponibilidad"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Disponibilidad">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long"/>
+      <xs:element minOccurs="0" name="Sector" type="xs:string"/>
+      <xs:element minOccurs="0" name="Precio" type="xs:double"/>
+      <xs:element minOccurs="0" name="Cantidad" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="reservarEntradasResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="idReserva" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
