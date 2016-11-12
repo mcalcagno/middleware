@@ -1,6 +1,8 @@
 package grupo01.ws.interfaces;
 
+import java.util.Date;
+
 public interface ConfirmarReservaEntradas {
 
-	void confirmarReservaVenta(String idReserva);
+	Long confirmarReservaVenta(Long idReserva, Long idMedioPago, String nroTarjeta, Date fechaVenc, Integer digitoVerificador);
 }
