@@ -1,0 +1,7 @@
+RequestAnulacionMedioPagoLocalData
+RequestAnulacionPagosYaData
+RequestConfirmacionMedioPagoLocalData
+RequestConfirmacionPagosYaData
+ResponseAnulacionPagosYaData
+ResponseConfirmacionPagosYaData
+ResponseMedioPagoLocalData

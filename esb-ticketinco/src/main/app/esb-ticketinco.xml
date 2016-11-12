@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml" xmlns:jms="http://www.mulesoft.org/schema/mule/jms" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/cxf http://www.mulesoft.org/schema/mule/cxf/current/mule-cxf.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd">
+    
+    <http:request-config name="HTTP_Request_Configuration" host="localhost" port="8080" doc:name="HTTP Request Configuration"/>
+    <http:listener-config name="HTTP_Listener_ESB_MedioPago_Externo" host="localhost" port="8081" doc:name="HTTP Listener Configuration"/>
+    <http:listener-config name="HTTP_Listener_ESB_MedioPago_Local" host="localhost" port="8082" doc:name="HTTP Listener Configuration"/>
+    <jms:activemq-connector name="Active_MQ" brokerURL="tcp://localhost:61616" validateConnections="true" doc:name="Active MQ"/>
+    <mulexml:jaxb-context name="JAXB_Context" packageNames="esb.dto" doc:name="JAXB Context"/>
+    
+	<!-- Flujo para el medio de pago externo -->
+    <flow name="ServicioConfirmacionMedioPagoExterno">
+        <http:listener config-ref="HTTP_Listener_ESB_MedioPago_Externo" path="/confirmacionMedioPagoExterno" doc:name="HTTP">
+            <http:response-builder>
+                <http:header headerName="Content-Type" value="application/xml"/>
+            </http:response-builder>
+        </http:listener>
+        <cxf:jaxws-service doc:name="CXF" serviceClass="esb.ws.IPagosYaConfirmadorPagos"  />
+        <logger message="Sending the payload #[payload] to ObjectToXml " level="INFO" doc:name="Logger"/>
+        <choice doc:name="Choice">
+            <when expression="#[flowVars.method.name == 'confirmarPago']">
+                <mulexml:jaxb-object-to-xml-transformer mimeType="application/xml" jaxbContext-ref="JAXB_Context" doc:name="JAXB Object to XML"/>
+                <http:request config-ref="HTTP_Request_Configuration" path="/PagosYa/rest/pagos/pagos" method="POST" doc:name="confirmarPago">
+                </http:request>
+                <logger message="saliendo del WS confirmar pago  #[payload]" level="INFO" doc:name="Logger"/>
+                <mulexml:jaxb-xml-to-object-transformer mimeType="application/xml" jaxbContext-ref="JAXB_Context" doc:name="XML to JAXB Object"/>
+                <logger message="Saliendo del Xml To Object del confirmar Pago con payload #[payload]" level="INFO" doc:name="Logger"/>
+            </when>
+            <otherwise>
+                <mulexml:jaxb-object-to-xml-transformer mimeType="application/xml" jaxbContext-ref="JAXB_Context" doc:name="JAXB Object to XML"/>
+                <http:request config-ref="HTTP_Request_Configuration" path="/PagosYa/rest/pagos/pagos" method="PUT" doc:name="cancelarPago"/>
+                <logger message="saliendo del WS anular pago  #[payload]" level="INFO" doc:name="Logger"/>
+                <mulexml:jaxb-xml-to-object-transformer mimeType="application/xml" jaxbContext-ref="JAXB_Context" doc:name="XML to JAXB Object"/>
+                <logger message="Saliendo del Xml To Object del anular Pago con payload #[payload]" level="INFO" doc:name="Logger"/>
+            </otherwise>
+        </choice>
+<!--         <mulexml:jaxb-xml-to-object-transformer mimeType="application/xml" jaxbContext-ref="JAXB_Context" doc:name="XML to JAXB Object" returnClass="esb.dto.ResultadoConfirmacionPagoData"/> -->
+    </flow>
+    
+	<!-- Flujo para el medio de pago local -->
+    <flow name="ServicioConfirmacionMedioPagoLocal">
+        <http:listener config-ref="HTTP_Listener_ESB_MedioPago_Local" path="/confirmacionMedioPagoLocal" doc:name="HTTP"/>
+        <cxf:jaxws-service serviceClass="esb.ws.IConfirmadorMedioPagoLocal" doc:name="CXF"/>
+        <logger message="Sending the payload is #[payload] to 'Object to XML' " level="INFO" doc:name="Logger" />
+        <choice doc:name="Choice">
+            <when expression="#[flowVars.method.name == 'confirmarPago']">
+                <mulexml:jaxb-object-to-xml-transformer jaxbContext-ref="JAXB_Context" doc:name="JAXB Object to XML"/>
+            </when>
+            <otherwise>
+                <mulexml:jaxb-object-to-xml-transformer mimeType="application/xml" jaxbContext-ref="JAXB_Context" doc:name="JAXB Object to XML"/>
+            </otherwise>
+        </choice>
+        <jms:outbound-endpoint queue="MedioPagoLocalQueue" connector-ref="Active_MQ" doc:name="Queue"/>
+        <logger level="INFO" doc:name="Logger" message="Leaving ObjectToXml with payload #[payload]"/>
+    </flow>
+</mule>
