@@ -1,7 +1,9 @@
 package grupo01.ws;
 
+import grupo01.ws.impl.EntradaData;
+
 public interface CallbackWs {
 
-	void ConfirmarReservaVentaResponse();
+	void NotificacionConfirmacionReserva(EntradaData entrada);
 	
 }

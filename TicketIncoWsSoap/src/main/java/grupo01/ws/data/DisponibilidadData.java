@@ -50,6 +50,16 @@ public class DisponibilidadData {
 	public void setCantidad(Integer cantidad) {
 		this.cantidad = cantidad;
 	}
+
+	public Double getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(Double precio) {
+		this.precio = precio;
+	}
+	
+	
 	
 	
 }

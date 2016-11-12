@@ -1,5 +1,6 @@
 package grupo01.ws.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,26 +31,41 @@ public class ReservarEntradasImpl implements ReservarEntradas{
 			@WebParam(name="horarios")List<HorarioData> horarios) {
 		// TODO Auto-generated method stub
 		Evento evento =  Manejador.getEvento(idEvento);
+		Integer cantidad;
+		List<Horario> horariosReserva = new ArrayList<Horario>();
+		Horario hReserva;
+		Disponibilidad dispReserva;
+		
 		for (HorarioData horarioData : horarios){
 			List<Horario> horariosEvento = evento.getHorarios();
+			hReserva = new Horario();
+			hReserva.setFechaHora(horarioData.getFechaHorario());
+			hReserva.setCodigo(horarioData.getCodigo());
+			
 			for (int i=0;i<horariosEvento.size();i++){
 				Horario horarioEvento = horariosEvento.get(i);
 				if (horarioEvento.getId() == horarioData.getId()){
 					for (DisponibilidadData dispData: horarioData.getDisponibilidades()){
 						
 						for(Disponibilidad disp: horarioEvento.getDisponibilidades()){
+							
 							if (disp.getSector().trim().equals(dispData.getSector())){
-								Manejador.updateCantidadDisponible(disp,dispData.getCantidad());
+								
+								cantidad = Manejador.updateCantidadDisponible(disp,dispData.getCantidad());
+								dispReserva = new Disponibilidad(dispData.getSector(), dispData.getPrecio(), cantidad);
+								hReserva.getDisponibilidades().add(dispReserva);
 								break;
 							}
 						}
 						
 					}
-				} 
+				}
 				
 			}
+			
+			horariosReserva.add(hReserva);
 		}
-		Long idReserva = Manejador.crearReserva(evento);
+		Long idReserva = Manejador.crearReserva(evento,horariosReserva);
 		
 		return idReserva;
 	}

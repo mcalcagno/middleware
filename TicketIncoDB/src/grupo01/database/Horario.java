@@ -18,6 +18,10 @@ import javax.persistence.Table;
 @Table(name="horarios")
 public class Horario {
 
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
 	@Id @GeneratedValue
 	private Long id;
 	private String codigo;

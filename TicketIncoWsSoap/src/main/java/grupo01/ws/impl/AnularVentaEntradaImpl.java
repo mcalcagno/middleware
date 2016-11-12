@@ -4,6 +4,7 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 
+import grupo01.database.Manejador;
 import grupo01.ws.interfaces.AnularVentaEntrada;
 
 @WebService(targetNamespace = "http://ws.grupo01/", portName = "AnularVentaEntradaPort", serviceName = "AnularVentaEntradaService")
@@ -15,9 +16,9 @@ public class AnularVentaEntradaImpl implements AnularVentaEntrada{
 
 	@WebMethod(operationName = "anularVentaEntrada", action = "urn:AnularVentaEntrada")
 	@Override
-	public void anularVentaEntrada(@WebParam(name = "espectaculo") String espectaculo) {
-		// TODO Auto-generated method stub
-		
+	public Long anularVentaEntrada(@WebParam(name = "idCoonfirmacion") Long idConfirmacion,
+			@WebParam(name = "idMedioPago") Long idMedioPago) {
+		return Manejador.createAnulacion(idConfirmacion).getId();
 	}
 
 	

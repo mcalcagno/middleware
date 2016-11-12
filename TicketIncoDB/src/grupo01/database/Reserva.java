@@ -1,11 +1,19 @@
 package grupo01.database;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name="reservas")
@@ -20,6 +28,12 @@ public class Reserva {
 	@ManyToOne
 	@JoinColumn(name = "mediopoago_id")
 	private MedioPago medioPago;
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinTable(name="reserva_horarios",
+		joinColumns=@JoinColumn(name="reserva_fk"),
+		inverseJoinColumns=@JoinColumn(name="horario_fk"))
+	private List<Horario> horarios;
 
 	
 	public MedioPago getMedioPago() {
@@ -43,5 +57,12 @@ public class Reserva {
 	public void setEvento(Evento evento) {
 		this.evento = evento;
 	}
+	public List<Horario> getHorarios() {
+		return horarios;
+	}
+	public void setHorarios(List<Horario> horarios) {
+		this.horarios = horarios;
+	}
 
+	
 }

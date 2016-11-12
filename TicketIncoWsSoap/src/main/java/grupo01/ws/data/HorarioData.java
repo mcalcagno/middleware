@@ -18,6 +18,12 @@ public class HorarioData {
 	@XmlElement(name = "Codigo")
 	private String codigo;
 	
+	public String getCodigo() {
+		return codigo;
+	}
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
 	@XmlElement(name = "FechaHorario")
 	private Date fechaHorario;
 	
