@@ -7,6 +7,7 @@
 		<class>grupo01.database.Disponibilidad</class>
 		<class>grupo01.database.MedioPago</class>
 		<class>grupo01.database.Reserva</class>
+		<class>grupo01.database.Confirmacion</class>
 		
 		<properties>
 

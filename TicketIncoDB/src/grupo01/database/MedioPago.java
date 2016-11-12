@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Table(name="mediospago")
 public class MedioPago {
 
-	@Id @GeneratedValue
+	@Id 
 	private Long id;
 	private String numeroTarjeta;
 	private Date fechaVencimiento;
@@ -38,6 +38,17 @@ public class MedioPago {
 	public Long getId() {
 		return id;
 	}
+	public MedioPago(Long id, String numeroTarjeta, Date fechaVencimiento, int digitoVerificador) {
+		super();
+		this.id = id;
+		this.numeroTarjeta = numeroTarjeta;
+		this.fechaVencimiento = fechaVencimiento;
+		this.digitoVerificador = digitoVerificador;
+	}
+	
+	public MedioPago(){}
+	
+	
 	
 	
 }

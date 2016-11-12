@@ -24,7 +24,8 @@ public class App {
 		evento.setFecha(new Date());
 		List<Horario> horarios = evento.getHorarios();
 		for(int i=0;i<3;i++){
-			Horario h = new Horario(String.valueOf(i));
+			Horario h = new Horario(String.valueOf(i), new Date());
+			
 			List<Disponibilidad> disponibilidades = h.getDisponibilidades();
 			for(int j=0;j<5;j++){
 				Disponibilidad d = new Disponibilidad();

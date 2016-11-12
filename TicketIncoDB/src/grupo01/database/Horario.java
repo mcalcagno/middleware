@@ -1,5 +1,6 @@
 package grupo01.database;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,6 +21,9 @@ public class Horario {
 	@Id @GeneratedValue
 	private Long id;
 	private String codigo;
+	private Date fechaHora;
+	
+	
 	@OneToMany(fetch=FetchType.EAGER,cascade = CascadeType.ALL)
 	@JoinTable(name="horario_disponibilidades",
 		joinColumns=@JoinColumn(name="horario_fk"),
@@ -30,8 +34,9 @@ public class Horario {
 		return codigo;
 	}
 
-	public Horario(String codigo){
+	public Horario(String codigo, Date fechaHora){
 		this.codigo=codigo;
+		this.fechaHora = fechaHora;
 	}
 
 	public List<Disponibilidad> getDisponibilidades() {
@@ -47,4 +52,14 @@ public class Horario {
 	
 	public Horario(){}
 
+	public Date getFechaHora() {
+		return fechaHora;
+	}
+
+	public void setFechaHora(Date fechaHora) {
+		this.fechaHora = fechaHora;
+	}
+
+	
+	
 }

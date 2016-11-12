@@ -1,5 +1,7 @@
 package grupo01.database;
 
+import java.util.Date;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -56,6 +58,48 @@ public class Manejador {
 			e.printStackTrace();
 		}
 	    return reserva.getId();
+		
+	}
+
+	public static Reserva getReserva(Long idReserva) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory(persistence_unit);
+		EntityManager em = emf.createEntityManager();
+		Query q = em.createQuery("SELECT e FROM Reserva e WHERE id=:id",Reserva.class);
+		q.setParameter("id", idReserva);
+		Reserva reserva = (Reserva)q.getSingleResult();
+		em.close();
+		emf.close();
+		return reserva;
+	}
+
+	public static Confirmacion confirmarReserva(Long idReserva) {
+		// TODO Auto-generated method stub
+		
+		Reserva reserva = getReserva(idReserva);
+		reserva.setEstado(2);
+		Confirmacion conf = new Confirmacion(reserva);
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory(persistence_unit);
+		EntityManager em = emf.createEntityManager();
+		em.merge(reserva);
+		em.persist(conf);
+		em.close();
+		emf.close();
+		return conf;
+	}
+
+	public static void crearMedioPago(Long idReserva, Long idMedioPago, String nroTarjeta, Date fechaVenc,
+			Integer digitoVerificador) {
+		// TODO Auto-generated method stub
+		
+		MedioPago m = new MedioPago(idMedioPago, nroTarjeta, fechaVenc, digitoVerificador);
+		Reserva r = getReserva(idReserva);
+		r.setMedioPago(m);
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory(persistence_unit);
+		EntityManager em = emf.createEntityManager();
+		em.persist(m);
+		em.merge(r);
+		em.close();
+		emf.close();
 		
 	}	
 	
