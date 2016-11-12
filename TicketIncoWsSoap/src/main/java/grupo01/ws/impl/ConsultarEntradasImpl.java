@@ -38,7 +38,7 @@ public class ConsultarEntradasImpl implements ConsultarEntradas{
 				DisponibilidadData dData = new DisponibilidadData(d.getId(), d.getSector(), d.getPrecio(), d.getCantidad());
 				disp.add(dData);
 			}
-			HorarioData hd = new HorarioData(h.getId(), h.getCodigo(), disp);
+			HorarioData hd = new HorarioData(h.getId(), h.getCodigo(), disp, h.getFechaHora());
 			list.add(hd);	
 		}
 		return list;
