@@ -4,19 +4,19 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement( name = "responseMedioPagoLocalData")
-public class ResponseMedioPagoLocalData {
+public class ResponseConfirmacionMedioPagoLocalData {
 	
 	private boolean status;
     private String mensaje;
     private long idConfirmacionPago;
     
-	public ResponseMedioPagoLocalData(boolean status, String mensaje, long idConfirmacionPago) {
+	public ResponseConfirmacionMedioPagoLocalData(boolean status, String mensaje, long idConfirmacionPago) {
 		this.status = status;
 		this.mensaje = mensaje;
 		this.idConfirmacionPago = idConfirmacionPago;
 	}
 
-	public ResponseMedioPagoLocalData() {}
+	public ResponseConfirmacionMedioPagoLocalData() {}
 
 	public boolean isStatus() {
 		return status;

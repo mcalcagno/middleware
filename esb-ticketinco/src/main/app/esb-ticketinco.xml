@@ -32,16 +32,14 @@ http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/
                 <mulexml:jaxb-object-to-xml-transformer mimeType="application/xml" jaxbContext-ref="JAXB_Context" doc:name="JAXB Object to XML"/>
                 <http:request config-ref="HTTP_Request_Configuration" path="/PagosYa/rest/pagos/pagos" method="POST" doc:name="confirmarPago">
                 </http:request>
-                <logger message="saliendo del WS confirmar pago  #[payload]" level="INFO" doc:name="Logger"/>
                 <mulexml:jaxb-xml-to-object-transformer mimeType="application/xml" jaxbContext-ref="JAXB_Context" doc:name="XML to JAXB Object"/>
-                <logger message="Saliendo del Xml To Object del confirmar Pago con payload #[payload]" level="INFO" doc:name="Logger"/>
+                <logger message="saliendo del WS confirmar pago  #[payload]" level="INFO" doc:name="Logger"/>
             </when>
             <otherwise>
                 <mulexml:jaxb-object-to-xml-transformer mimeType="application/xml" jaxbContext-ref="JAXB_Context" doc:name="JAXB Object to XML"/>
                 <http:request config-ref="HTTP_Request_Configuration" path="/PagosYa/rest/pagos/pagos" method="PUT" doc:name="cancelarPago"/>
-                <logger message="saliendo del WS anular pago  #[payload]" level="INFO" doc:name="Logger"/>
                 <mulexml:jaxb-xml-to-object-transformer mimeType="application/xml" jaxbContext-ref="JAXB_Context" doc:name="XML to JAXB Object"/>
-                <logger message="Saliendo del Xml To Object del anular Pago con payload #[payload]" level="INFO" doc:name="Logger"/>
+                <logger message="saliendo del WS anular pago  #[payload]" level="INFO" doc:name="Logger"/>
             </otherwise>
         </choice>
 <!--         <mulexml:jaxb-xml-to-object-transformer mimeType="application/xml" jaxbContext-ref="JAXB_Context" doc:name="XML to JAXB Object" returnClass="esb.dto.ResultadoConfirmacionPagoData"/> -->
@@ -54,10 +52,10 @@ http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/
         <logger message="Sending the payload is #[payload] to 'Object to XML' " level="INFO" doc:name="Logger" />
         <choice doc:name="Choice">
             <when expression="#[flowVars.method.name == 'confirmarPago']">
-                <mulexml:jaxb-object-to-xml-transformer jaxbContext-ref="JAXB_Context" doc:name="JAXB Object to XML"/>
+                <mulexml:jaxb-object-to-xml-transformer jaxbContext-ref="JAXB_Context" doc:name="JAXB Object to XML (confirmarPago)"/>
             </when>
             <otherwise>
-                <mulexml:jaxb-object-to-xml-transformer mimeType="application/xml" jaxbContext-ref="JAXB_Context" doc:name="JAXB Object to XML"/>
+                <mulexml:jaxb-object-to-xml-transformer mimeType="application/xml" jaxbContext-ref="JAXB_Context" doc:name="JAXB Object to XML (anularPago)"/>
             </otherwise>
         </choice>
         <jms:outbound-endpoint queue="MedioPagoLocalQueue" connector-ref="Active_MQ" doc:name="Queue"/>
