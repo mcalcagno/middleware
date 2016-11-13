@@ -3,6 +3,7 @@ package grupo01.ws.impl;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.imageio.ImageIO;
@@ -10,14 +11,17 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
+import javax.xml.rpc.ServiceException;
 import javax.xml.ws.Action;
 import javax.xml.ws.ResponseWrapper;
 import javax.xml.ws.soap.MTOM;
 
 import grupo01.database.Confirmacion;
 import grupo01.database.Manejador;
+import grupo01.ws.data.Constantes;
 import grupo01.ws.data.EntradaData;
-import grupo01.ws.esb.ServicioEsb;
+import grupo01.ws.esb.PagoExternoEsb;
+import grupo01.ws.esb.PagoLocalEsb;
 import grupo01.ws.interfaces.ConfirmarReservaEntradas;
 
 @MTOM
@@ -38,27 +42,41 @@ public class ConfirmarReservaEntradasImpl implements ConfirmarReservaEntradas{
 	public EntradaData confirmarReservaVenta(@WebParam(name = "idReserva") Long idReserva, @WebParam(name = "medioPago") Long idMedioPago,
 			@WebParam(name = "nroTarjeta") String nroTarjeta, @WebParam(name = "fechaVenc") Date fechaVenc,@WebParam(name = "digitoVerificador")  Integer digitoVerificador) {
 		
-		//Confirmacion conf = Manejador.confirmarReserva(idReserva);
-		//Manejador.crearMedioPago(idReserva,idMedioPago,nroTarjeta,fechaVenc,digitoVerificador);
-		//EntradaData entrada =new EntradaData( conf.getId());
-		EntradaData entrada =new EntradaData( 22L);
-		File ent1File = new File("C:\\obligatorio1\\middleware\\TicketIncoWsSoap\\src\\main\\resources\\images\\ent1.jpg");
-		File ent2File = new File("C:\\obligatorio1\\middleware\\TicketIncoWsSoap\\src\\main\\resources\\images\\ent2.jpg");
-		File ent3File = new File("C:\\obligatorio1\\middleware\\TicketIncoWsSoap\\src\\main\\resources\\images\\ent3.png");
+		
+		EntradaData entrada = null;
 		try {
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(fechaVenc);
+			if (idMedioPago == Constantes.MEDIO_PAGO_EXTERNO){
+				PagoExternoEsb pagoExt = new PagoExternoEsb();
+				pagoExt.confirmarPago(digitoVerificador,cal, idReserva, 10D, new Long(nroTarjeta));
+			} else {
+				PagoLocalEsb pagoLocal = new PagoLocalEsb();
+				//pagoLocal.confirmarPago(digitoVerificador.toString(), cal, idReserva, 10d, nroTarjeta);
+			}
+			Confirmacion conf = Manejador.confirmarReserva(idReserva);
+			Manejador.crearMedioPago(idReserva,idMedioPago,nroTarjeta,fechaVenc,digitoVerificador);
+			entrada = new EntradaData( conf.getId());
+			File ent1File = new File("C:\\obligatorio1\\middleware\\TicketIncoWsSoap\\src\\main\\resources\\images\\ent1.jpg");
+			File ent2File = new File("C:\\obligatorio1\\middleware\\TicketIncoWsSoap\\src\\main\\resources\\images\\ent2.jpg");
+			File ent3File = new File("C:\\obligatorio1\\middleware\\TicketIncoWsSoap\\src\\main\\resources\\images\\ent3.png");
 			Image ent1Img = ImageIO.read(ent1File);
 			Image ent2Img = ImageIO.read(ent2File);
 			Image ent3Img = ImageIO.read(ent3File);
 			entrada.getImagenes().add(ent1Img);
 			entrada.getImagenes().add(ent2Img);
 			entrada.getImagenes().add(ent3Img);
-			
-			System.out.println("Invocando Servicio Esb");
-			ServicioEsb servicio = new ServicioEsb();
-			servicio.execute();
-			System.out.println("Finalizo Servicio Esb");
+
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Error al invocar el esb");
 			e.printStackTrace();
 		}
 		return entrada;

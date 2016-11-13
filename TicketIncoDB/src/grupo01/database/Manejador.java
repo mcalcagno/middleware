@@ -53,6 +53,7 @@ public class Manejador {
 			reserva.setEstado(1);
 			reserva.setEvento(evento);
 			reserva.setHorarios(horarios);
+			reserva.setFechaIngreso(new Date());
 			
 			em.persist(reserva);
 			evento.getReservas().add(reserva);
@@ -113,7 +114,7 @@ public class Manejador {
 		
 	}
 	
-	public static Anulacion createAnulacion(Long idConfirmacion){
+	public static Anulacion createAnulacion(Long idConfirmacion, Long idAnulacion){
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory(persistence_unit);
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
@@ -121,11 +122,26 @@ public class Manejador {
 		q.setParameter("id", idConfirmacion);
 		Confirmacion conf = (Confirmacion)q.getSingleResult();
 		Anulacion anul = new Anulacion(conf);
+		anul.setId(idAnulacion);
 		em.persist(anul);
 		Reserva reserva = conf.getReserva();
 		reserva.setEstado(0);
 		em.merge(reserva);
 		
+		em.getTransaction().commit();
+		em.close();
+		emf.close();
+		
+		habilitarDisponibilidades(reserva);
+		
+		
+		return anul;
+	}
+	
+	public static void habilitarDisponibilidades(Reserva reserva) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory(persistence_unit);
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
 		Evento evento = reserva.getEvento();
 		List<Horario> horariosEvento = evento.getHorarios();
 		
@@ -147,29 +163,38 @@ public class Manejador {
 			}
 			
 		}
-		
 		em.getTransaction().commit();
 		em.close();
 		emf.close();
-		
-		return anul;
 	}
-	
-	public static void cancelarReservas(){
+
+	public static Integer cancelarReservas(){
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory(persistence_unit);
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 		Query q = em.createQuery("SELECT e FROM Reserva e WHERE estado = 1",Reserva.class);
 		List<Reserva> reservas = q.getResultList();
+		Integer cantReservas = 0;
+		Date horaActual = new Date();
 		
 		for (Reserva r: reservas){
-			r.setEstado(0);
-			em.merge(r);
+			
+			if ((horaActual.getTime() - r.getFechaIngreso().getTime()) > 60000){
+				r.setEstado(0);
+				cantReservas++;
+				em.merge(r);
+			}
 		}
 		
 		em.getTransaction().commit();
 		em.close();
 		emf.close();
+		
+		for (Reserva r: reservas){
+			habilitarDisponibilidades(r);
+		}
+		
+		return cantReservas;
 		
 	}
 	

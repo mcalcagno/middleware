@@ -10,13 +10,21 @@
 
   <xs:element name="confirmarPagoResponse" type="tns:confirmarPagoResponse"/>
 
+  <xs:element name="requestAnulacionMedioPagoLocalData" type="tns:requestAnulacionMedioPagoLocalData"/>
+
   <xs:element name="requestAnulacionPagosYaData" type="tns:requestAnulacionPagosYaData"/>
 
   <xs:element name="requestConfirmacionPagosYaData" type="tns:requestConfirmacionPagosYaData"/>
 
+  <xs:element name="requestMedioPagoLocalData" type="tns:requestConfirmacionMedioPagoLocalData"/>
+
+  <xs:element name="responseAnulacionMedioPagoLocalData" type="tns:responseAnulacionMedioPagoLocalData"/>
+
   <xs:element name="responseAnulacionPagosYaData" type="tns:responseAnulacionPagosYaData"/>
 
   <xs:element name="responseConfirmacionPagosYaData" type="tns:responseConfirmacionPagosYaData"/>
+
+  <xs:element name="responseMedioPagoLocalData" type="tns:responseConfirmacionMedioPagoLocalData"/>
 
   <xs:complexType name="confirmarPago">
     <xs:sequence>
@@ -36,7 +44,15 @@
 
   <xs:complexType name="confirmarPagoResponse">
     <xs:sequence>
-      <xs:element minOccurs="0" name="return" type="tns:requestConfirmacionPagosYaData"/>
+      <xs:element minOccurs="0" name="return" type="tns:responseConfirmacionPagosYaData"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="responseConfirmacionPagosYaData">
+    <xs:sequence>
+      <xs:element name="idConfirmacionPago" type="xs:long"/>
+      <xs:element minOccurs="0" name="mensaje" type="xs:string"/>
+      <xs:element name="status" type="xs:boolean"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -54,17 +70,7 @@
 
   <xs:complexType name="cancelarPagoResponse">
     <xs:sequence>
-      <xs:element minOccurs="0" name="return" type="tns:requestAnulacionPagosYaData"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="requestMedioPagoLocalData">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="digitoVerif" type="xs:string"/>
-      <xs:element minOccurs="0" name="fechaVenc" type="xs:string"/>
-      <xs:element minOccurs="0" name="idReserva" type="xs:long"/>
-      <xs:element minOccurs="0" name="monto" type="xs:string"/>
-      <xs:element minOccurs="0" name="numeroTarjeta" type="xs:string"/>
+      <xs:element minOccurs="0" name="return" type="tns:responseAnulacionPagosYaData"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -74,7 +80,23 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="responseConfirmacionPagosYaData">
+  <xs:complexType name="requestAnulacionMedioPagoLocalData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="idConfirmacionPago" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="requestConfirmacionMedioPagoLocalData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="digitoVerif" type="xs:string"/>
+      <xs:element minOccurs="0" name="fechaVenc" type="xs:string"/>
+      <xs:element minOccurs="0" name="idReserva" type="xs:long"/>
+      <xs:element minOccurs="0" name="monto" type="xs:string"/>
+      <xs:element minOccurs="0" name="numeroTarjeta" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="responseConfirmacionMedioPagoLocalData">
     <xs:sequence>
       <xs:element name="idConfirmacionPago" type="xs:long"/>
       <xs:element minOccurs="0" name="mensaje" type="xs:string"/>
@@ -82,11 +104,9 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="responseMedioPagoLocalData">
+  <xs:complexType name="responseAnulacionMedioPagoLocalData">
     <xs:sequence>
-      <xs:element name="idConfirmacionPago" type="xs:long"/>
-      <xs:element minOccurs="0" name="mensaje" type="xs:string"/>
-      <xs:element name="status" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="idAnulacionPago" type="xs:long"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -145,7 +165,7 @@
   </wsdl:binding>
   <wsdl:service name="IPagosYaConfirmadorPagosService">
     <wsdl:port binding="tns:IPagosYaConfirmadorPagosServiceSoapBinding" name="IPagosYaConfirmadorPagosPort">
-      <soap:address location="http://localhost:8081/confirmacionMedioPagoExterno"/>
+      <soap:address location="http://192.168.43.144:8081/confirmacionMedioPagoExterno"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

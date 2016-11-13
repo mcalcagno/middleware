@@ -12,11 +12,13 @@ public class Scheduler {
 		// TODO Auto-generated constructor stub
 	}
 	
-	 	@Scheduled(fixedDelay=1800000)
+	 	@Scheduled(fixedDelay=60000)
 	    public void process() {
 
 	 		System.out.println("Procesando anulacion...");
-	 		Manejador.cancelarReservas();
+	 		Integer cantReservas = Manejador.cancelarReservas();
+	 		System.out.println("Se anularon "+cantReservas+" reservas");
+	 		
 	    }
 
 }

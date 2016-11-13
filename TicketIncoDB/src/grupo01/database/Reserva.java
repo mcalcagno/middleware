@@ -1,5 +1,6 @@
 package grupo01.database;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -21,6 +22,7 @@ public class Reserva {
 	
 	@Id @GeneratedValue
 	private Long id;
+	private Date fechaIngreso;
 	private Integer estado;
 	@ManyToOne
 	@JoinColumn(name = "evento_id")
@@ -63,6 +65,12 @@ public class Reserva {
 	public void setHorarios(List<Horario> horarios) {
 		this.horarios = horarios;
 	}
-
+	public Date getFechaIngreso() {
+		return fechaIngreso;
+	}
+	public void setFechaIngreso(Date fechaIngreso) {
+		this.fechaIngreso = fechaIngreso;
+	}
+	
 	
 }

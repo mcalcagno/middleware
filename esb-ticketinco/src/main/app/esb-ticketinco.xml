@@ -46,19 +46,19 @@ http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/
     </flow>
     
 	<!-- Flujo para el medio de pago local -->
-    <flow name="ServicioConfirmacionMedioPagoLocal">
-        <http:listener config-ref="HTTP_Listener_ESB_MedioPago_Local" path="/confirmacionMedioPagoLocal" doc:name="HTTP"/>
-        <cxf:jaxws-service serviceClass="esb.ws.IConfirmadorMedioPagoLocal" doc:name="CXF"/>
-        <logger message="Sending the payload is #[payload] to 'Object to XML' " level="INFO" doc:name="Logger" />
-        <choice doc:name="Choice">
-            <when expression="#[flowVars.method.name == 'confirmarPago']">
-                <mulexml:jaxb-object-to-xml-transformer jaxbContext-ref="JAXB_Context" doc:name="JAXB Object to XML (confirmarPago)"/>
-            </when>
-            <otherwise>
-                <mulexml:jaxb-object-to-xml-transformer mimeType="application/xml" jaxbContext-ref="JAXB_Context" doc:name="JAXB Object to XML (anularPago)"/>
-            </otherwise>
-        </choice>
-        <jms:outbound-endpoint queue="MedioPagoLocalQueue" connector-ref="Active_MQ" doc:name="Queue"/>
-        <logger level="INFO" doc:name="Logger" message="Leaving ObjectToXml with payload #[payload]"/>
-    </flow>
+<!--     <flow name="ServicioConfirmacionMedioPagoLocal"> -->
+<!--         <http:listener config-ref="HTTP_Listener_ESB_MedioPago_Local" path="/confirmacionMedioPagoLocal" doc:name="HTTP"/> -->
+<!--         <cxf:jaxws-service serviceClass="esb.ws.IConfirmadorMedioPagoLocal" doc:name="CXF"/> -->
+<!--         <logger message="Sending the payload is #[payload] to 'Object to XML' " level="INFO" doc:name="Logger" /> -->
+<!--         <choice doc:name="Choice"> -->
+<!--             <when expression="#[flowVars.method.name == 'confirmarPago']"> -->
+<!--                 <mulexml:jaxb-object-to-xml-transformer jaxbContext-ref="JAXB_Context" doc:name="JAXB Object to XML (confirmarPago)"/> -->
+<!--             </when> -->
+<!--             <otherwise> -->
+<!--                 <mulexml:jaxb-object-to-xml-transformer mimeType="application/xml" jaxbContext-ref="JAXB_Context" doc:name="JAXB Object to XML (anularPago)"/> -->
+<!--             </otherwise> -->
+<!--         </choice> -->
+<!--         <jms:outbound-endpoint queue="MedioPagoLocalQueue" connector-ref="Active_MQ" doc:name="Queue"/> -->
+<!--         <logger level="INFO" doc:name="Logger" message="Leaving ObjectToXml with payload #[payload]"/> -->
+<!--     </flow> -->
 </mule>

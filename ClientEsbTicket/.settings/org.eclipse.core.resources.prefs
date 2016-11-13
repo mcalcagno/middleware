@@ -10,3 +10,5 @@ encoding//src/esb/ws/IPagosYaConfirmadorPagosServiceSoapBindingStub.java=UTF-8
 encoding//src/esb/ws/RequestAnulacionPagosYaData.java=UTF-8
 encoding//src/esb/ws/RequestConfirmacionPagosYaData.java=UTF-8
 encoding//src/esb/ws/RequestMedioPagoLocalData.java=UTF-8
+encoding//src/esb/ws/ResponseAnulacionPagosYaData.java=UTF-8
+encoding//src/esb/ws/ResponseConfirmacionPagosYaData.java=UTF-8

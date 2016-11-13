@@ -22,7 +22,7 @@ public class IConfirmadorMedioPagoLocalServiceLocator extends org.apache.axis.cl
     }
 
     // Use to get a proxy class for IConfirmadorMedioPagoLocalPort
-    private java.lang.String IConfirmadorMedioPagoLocalPort_address = "http://localhost:8082/confirmacionMedioPagoLocal";
+    private java.lang.String IConfirmadorMedioPagoLocalPort_address = "http://192.168.43.144:8082/confirmacionMedioPagoLocal";
 
     public java.lang.String getIConfirmadorMedioPagoLocalPortAddress() {
         return IConfirmadorMedioPagoLocalPort_address;
