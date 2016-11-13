@@ -1,9 +1,6 @@
 package grupo01.helper;
 
 import java.util.Date;
-import java.util.HashMap;
-import javax.ejb.Singleton;
-import javax.annotation.PostConstruct;
 
 import grupo01.dto.RequestAnulacionPagosYaData;
 import grupo01.dto.RequestConfirmacionPagosYaData;

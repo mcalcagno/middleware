@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://ws.esb/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="IConfirmadorMedioPagoLocalService" targetNamespace="http://ws.esb/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://ws.esb/" targetNamespace="http://ws.esb/" version="1.0">
+
+  <xs:element name="requestAnulacionPagosYaData" type="tns:requestAnulacionPagosYaData"/>
+
+  <xs:element name="requestConfirmacionPagosYaData" type="tns:requestConfirmacionPagosYaData"/>
+
+  <xs:element name="requestMedioPagoLocalData" type="tns:requestMedioPagoLocalData"/>
+
+  <xs:element name="responseAnulacionPagosYaData" type="tns:responseAnulacionPagosYaData"/>
+
+  <xs:element name="responseConfirmacionPagosYaData" type="tns:responseConfirmacionPagosYaData"/>
+
+  <xs:element name="responseMedioPagoLocalData" type="tns:responseMedioPagoLocalData"/>
+
+  <xs:complexType name="requestMedioPagoLocalData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="digitoVerif" type="xs:string"/>
+      <xs:element minOccurs="0" name="fechaVenc" type="xs:string"/>
+      <xs:element minOccurs="0" name="idReserva" type="xs:long"/>
+      <xs:element minOccurs="0" name="monto" type="xs:string"/>
+      <xs:element minOccurs="0" name="numeroTarjeta" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="requestAnulacionPagosYaData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="idConfirmacionPago" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="requestConfirmacionPagosYaData">
+    <xs:sequence>
+      <xs:element name="digitoVerif" type="xs:int"/>
+      <xs:element minOccurs="0" name="fechaVenc" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="idReserva" type="xs:long"/>
+      <xs:element minOccurs="0" name="monto" type="xs:double"/>
+      <xs:element minOccurs="0" name="numeroTarjeta" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="responseAnulacionPagosYaData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="idAnulacionPago" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="responseConfirmacionPagosYaData">
+    <xs:sequence>
+      <xs:element name="idConfirmacionPago" type="xs:long"/>
+      <xs:element minOccurs="0" name="mensaje" type="xs:string"/>
+      <xs:element name="status" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="responseMedioPagoLocalData">
+    <xs:sequence>
+      <xs:element name="idConfirmacionPago" type="xs:long"/>
+      <xs:element minOccurs="0" name="mensaje" type="xs:string"/>
+      <xs:element name="status" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="confirmarPago">
+    <wsdl:part name="req" type="tns:requestMedioPagoLocalData">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="confirmarPagoResponse">
+    <wsdl:part name="return" type="tns:requestMedioPagoLocalData">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="IConfirmadorMedioPagoLocal">
+    <wsdl:operation name="confirmarPago">
+      <wsdl:input message="tns:confirmarPago" name="confirmarPago">
+    </wsdl:input>
+      <wsdl:output message="tns:confirmarPagoResponse" name="confirmarPagoResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="IConfirmadorMedioPagoLocalServiceSoapBinding" type="tns:IConfirmadorMedioPagoLocal">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="confirmarPago">
+      <soap:operation soapAction="confirmarPago" style="rpc"/>
+      <wsdl:input name="confirmarPago">
+        <soap:body namespace="http://ws.esb/" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="confirmarPagoResponse">
+        <soap:body namespace="http://ws.esb/" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="IConfirmadorMedioPagoLocalService">
+    <wsdl:port binding="tns:IConfirmadorMedioPagoLocalServiceSoapBinding" name="IConfirmadorMedioPagoLocalPort">
+      <soap:address location="http://localhost:8082/confirmacionMedioPagoLocal"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

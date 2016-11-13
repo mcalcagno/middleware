@@ -1,0 +1,6 @@
+grupo01\dto\RequestAnulacionPagosYaData.class
+grupo01\service\ServiciosPagos.class
+grupo01\dto\ResponseAnulacionPagosYaData.class
+grupo01\dto\ResponseConfirmacionPagosYaData.class
+grupo01\helper\PagosHelper.class
+grupo01\dto\RequestConfirmacionPagosYaData.class

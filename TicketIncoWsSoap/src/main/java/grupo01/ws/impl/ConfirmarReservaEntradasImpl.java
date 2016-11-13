@@ -17,6 +17,7 @@ import javax.xml.ws.soap.MTOM;
 import grupo01.database.Confirmacion;
 import grupo01.database.Manejador;
 import grupo01.ws.data.EntradaData;
+import grupo01.ws.esb.ServicioEsb;
 import grupo01.ws.interfaces.ConfirmarReservaEntradas;
 
 @MTOM
@@ -37,9 +38,10 @@ public class ConfirmarReservaEntradasImpl implements ConfirmarReservaEntradas{
 	public EntradaData confirmarReservaVenta(@WebParam(name = "idReserva") Long idReserva, @WebParam(name = "medioPago") Long idMedioPago,
 			@WebParam(name = "nroTarjeta") String nroTarjeta, @WebParam(name = "fechaVenc") Date fechaVenc,@WebParam(name = "digitoVerificador")  Integer digitoVerificador) {
 		
-		Confirmacion conf = Manejador.confirmarReserva(idReserva);
-		Manejador.crearMedioPago(idReserva,idMedioPago,nroTarjeta,fechaVenc,digitoVerificador);
-		EntradaData entrada =new EntradaData( conf.getId());
+		//Confirmacion conf = Manejador.confirmarReserva(idReserva);
+		//Manejador.crearMedioPago(idReserva,idMedioPago,nroTarjeta,fechaVenc,digitoVerificador);
+		//EntradaData entrada =new EntradaData( conf.getId());
+		EntradaData entrada =new EntradaData( 22L);
 		File ent1File = new File("C:\\obligatorio1\\middleware\\TicketIncoWsSoap\\src\\main\\resources\\images\\ent1.jpg");
 		File ent2File = new File("C:\\obligatorio1\\middleware\\TicketIncoWsSoap\\src\\main\\resources\\images\\ent2.jpg");
 		File ent3File = new File("C:\\obligatorio1\\middleware\\TicketIncoWsSoap\\src\\main\\resources\\images\\ent3.png");
@@ -50,6 +52,11 @@ public class ConfirmarReservaEntradasImpl implements ConfirmarReservaEntradas{
 			entrada.getImagenes().add(ent1Img);
 			entrada.getImagenes().add(ent2Img);
 			entrada.getImagenes().add(ent3Img);
+			
+			System.out.println("Invocando Servicio Esb");
+			ServicioEsb servicio = new ServicioEsb();
+			servicio.execute();
+			System.out.println("Finalizo Servicio Esb");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

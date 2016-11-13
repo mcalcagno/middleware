@@ -12,7 +12,7 @@ public class Scheduler {
 		// TODO Auto-generated constructor stub
 	}
 	
-	 	@Scheduled(fixedDelay=180000)
+	 	@Scheduled(fixedDelay=1800000)
 	    public void process() {
 
 	 		System.out.println("Procesando anulacion...");
