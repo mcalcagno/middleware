@@ -1,0 +1,19 @@
+<xs:schema xmlns:tns="http://impl.ws.grupo01/" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified" targetNamespace="http://impl.ws.grupo01/" version="1.0">
+
+  <xs:element name="consultarEstadoReserva" type="tns:consultarEstadoReserva"/>
+
+  <xs:element name="consultarEstadoReservaResponse" type="tns:consultarEstadoReservaResponse"/>
+
+  <xs:complexType name="consultarEstadoReserva">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="idReserva" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarEstadoReservaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="estadoReserva" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>

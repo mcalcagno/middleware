@@ -1,0 +1,16 @@
+<xs:schema xmlns:tns="http://ws.grupo01/" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://ws.grupo01/">
+  <xs:element name="anularVentaEntrada" type="tns:anularVentaEntrada"/>
+  <xs:element name="anularVentaEntradaResponse" type="tns:anularVentaEntradaResponse"/>
+  <xs:complexType name="anularVentaEntrada">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="idCoonfirmacion" type="xs:long"/>
+      <xs:element minOccurs="0" name="idMedioPago" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="anularVentaEntradaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="idAnulacion" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NoExistePagoFault" nillable="true" type="xs:string"/>
+</xs:schema>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="ConsultarEstadoReservaImplService" targetNamespace="http://impl.ws.grupo01/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://impl.ws.grupo01/" xmlns:ns1="http://ws.grupo01/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+<schema xmlns="http://www.w3.org/2001/XMLSchema">
+  <import namespace="http://impl.ws.grupo01/" schemaLocation="consultarestadoreservaimpl_schema1.xsd"/>
+  <import namespace="http://ws.grupo01/" schemaLocation="consultarestadoreservaimpl_schema2.xsd"/>
+</schema>
+  </wsdl:types>
+  <wsdl:message name="NoExisteReservaException">
+    <wsdl:part name="NoExisteReservaException" element="ns1:NoExisteReservaFault">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="consultarEstadoReserva">
+    <wsdl:part name="parameters" element="tns:consultarEstadoReserva">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="consultarEstadoReservaResponse">
+    <wsdl:part name="parameters" element="tns:consultarEstadoReservaResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ConsultarEstadoReservaImpl">
+    <wsdl:operation name="consultarEstadoReserva">
+      <wsdl:input name="consultarEstadoReserva" message="tns:consultarEstadoReserva">
+    </wsdl:input>
+      <wsdl:output name="consultarEstadoReservaResponse" message="tns:consultarEstadoReservaResponse">
+    </wsdl:output>
+      <wsdl:fault name="NoExisteReservaException" message="tns:NoExisteReservaException">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ConsultarEstadoReservaImplServiceSoapBinding" type="tns:ConsultarEstadoReservaImpl">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="consultarEstadoReserva">
+      <soap:operation soapAction="urn:ConsultarEstadoReserva" style="document"/>
+      <wsdl:input name="consultarEstadoReserva">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="consultarEstadoReservaResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NoExisteReservaException">
+        <soap:fault name="NoExisteReservaException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ConsultarEstadoReservaImplService">
+    <wsdl:port name="ConsultarEstadoReservaImplPort" binding="tns:ConsultarEstadoReservaImplServiceSoapBinding">
+      <soap:address location="http://localhost:9090/ConsultarEstadoReservaImplPort"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
