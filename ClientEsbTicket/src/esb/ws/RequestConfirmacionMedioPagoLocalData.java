@@ -1,5 +1,5 @@
 /**
- * RequestMedioPagoLocalData.java
+ * RequestConfirmacionMedioPagoLocalData.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
@@ -7,7 +7,7 @@
 
 package esb.ws;
 
-public class RequestMedioPagoLocalData  implements java.io.Serializable {
+public class RequestConfirmacionMedioPagoLocalData  implements java.io.Serializable {
     private java.lang.String digitoVerif;
 
     private java.lang.String fechaVenc;
@@ -18,10 +18,10 @@ public class RequestMedioPagoLocalData  implements java.io.Serializable {
 
     private java.lang.String numeroTarjeta;
 
-    public RequestMedioPagoLocalData() {
+    public RequestConfirmacionMedioPagoLocalData() {
     }
 
-    public RequestMedioPagoLocalData(
+    public RequestConfirmacionMedioPagoLocalData(
            java.lang.String digitoVerif,
            java.lang.String fechaVenc,
            java.lang.Long idReserva,
@@ -36,7 +36,7 @@ public class RequestMedioPagoLocalData  implements java.io.Serializable {
 
 
     /**
-     * Gets the digitoVerif value for this RequestMedioPagoLocalData.
+     * Gets the digitoVerif value for this RequestConfirmacionMedioPagoLocalData.
      * 
      * @return digitoVerif
      */
@@ -46,7 +46,7 @@ public class RequestMedioPagoLocalData  implements java.io.Serializable {
 
 
     /**
-     * Sets the digitoVerif value for this RequestMedioPagoLocalData.
+     * Sets the digitoVerif value for this RequestConfirmacionMedioPagoLocalData.
      * 
      * @param digitoVerif
      */
@@ -56,7 +56,7 @@ public class RequestMedioPagoLocalData  implements java.io.Serializable {
 
 
     /**
-     * Gets the fechaVenc value for this RequestMedioPagoLocalData.
+     * Gets the fechaVenc value for this RequestConfirmacionMedioPagoLocalData.
      * 
      * @return fechaVenc
      */
@@ -66,7 +66,7 @@ public class RequestMedioPagoLocalData  implements java.io.Serializable {
 
 
     /**
-     * Sets the fechaVenc value for this RequestMedioPagoLocalData.
+     * Sets the fechaVenc value for this RequestConfirmacionMedioPagoLocalData.
      * 
      * @param fechaVenc
      */
@@ -76,7 +76,7 @@ public class RequestMedioPagoLocalData  implements java.io.Serializable {
 
 
     /**
-     * Gets the idReserva value for this RequestMedioPagoLocalData.
+     * Gets the idReserva value for this RequestConfirmacionMedioPagoLocalData.
      * 
      * @return idReserva
      */
@@ -86,7 +86,7 @@ public class RequestMedioPagoLocalData  implements java.io.Serializable {
 
 
     /**
-     * Sets the idReserva value for this RequestMedioPagoLocalData.
+     * Sets the idReserva value for this RequestConfirmacionMedioPagoLocalData.
      * 
      * @param idReserva
      */
@@ -96,7 +96,7 @@ public class RequestMedioPagoLocalData  implements java.io.Serializable {
 
 
     /**
-     * Gets the monto value for this RequestMedioPagoLocalData.
+     * Gets the monto value for this RequestConfirmacionMedioPagoLocalData.
      * 
      * @return monto
      */
@@ -106,7 +106,7 @@ public class RequestMedioPagoLocalData  implements java.io.Serializable {
 
 
     /**
-     * Sets the monto value for this RequestMedioPagoLocalData.
+     * Sets the monto value for this RequestConfirmacionMedioPagoLocalData.
      * 
      * @param monto
      */
@@ -116,7 +116,7 @@ public class RequestMedioPagoLocalData  implements java.io.Serializable {
 
 
     /**
-     * Gets the numeroTarjeta value for this RequestMedioPagoLocalData.
+     * Gets the numeroTarjeta value for this RequestConfirmacionMedioPagoLocalData.
      * 
      * @return numeroTarjeta
      */
@@ -126,7 +126,7 @@ public class RequestMedioPagoLocalData  implements java.io.Serializable {
 
 
     /**
-     * Sets the numeroTarjeta value for this RequestMedioPagoLocalData.
+     * Sets the numeroTarjeta value for this RequestConfirmacionMedioPagoLocalData.
      * 
      * @param numeroTarjeta
      */
@@ -136,8 +136,8 @@ public class RequestMedioPagoLocalData  implements java.io.Serializable {
 
     private java.lang.Object __equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
-        if (!(obj instanceof RequestMedioPagoLocalData)) return false;
-        RequestMedioPagoLocalData other = (RequestMedioPagoLocalData) obj;
+        if (!(obj instanceof RequestConfirmacionMedioPagoLocalData)) return false;
+        RequestConfirmacionMedioPagoLocalData other = (RequestConfirmacionMedioPagoLocalData) obj;
         if (obj == null) return false;
         if (this == obj) return true;
         if (__equalsCalc != null) {
@@ -193,10 +193,10 @@ public class RequestMedioPagoLocalData  implements java.io.Serializable {
 
     // Type metadata
     private static org.apache.axis.description.TypeDesc typeDesc =
-        new org.apache.axis.description.TypeDesc(RequestMedioPagoLocalData.class, true);
+        new org.apache.axis.description.TypeDesc(RequestConfirmacionMedioPagoLocalData.class, true);
 
     static {
-        typeDesc.setXmlType(new javax.xml.namespace.QName("http://ws.esb/", "requestMedioPagoLocalData"));
+        typeDesc.setXmlType(new javax.xml.namespace.QName("http://ws.esb/", "requestConfirmacionMedioPagoLocalData"));
         org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("digitoVerif");
         elemField.setXmlName(new javax.xml.namespace.QName("", "digitoVerif"));

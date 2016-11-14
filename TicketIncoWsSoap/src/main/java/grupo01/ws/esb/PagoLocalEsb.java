@@ -7,7 +7,11 @@ import javax.xml.rpc.ServiceException;
 import esb.ws.IConfirmadorMedioPagoLocal;
 import esb.ws.IConfirmadorMedioPagoLocalService;
 import esb.ws.IConfirmadorMedioPagoLocalServiceLocator;
-import esb.ws.RequestMedioPagoLocalData;
+import esb.ws.RequestAnulacionMedioPagoLocalData;
+import esb.ws.RequestConfirmacionMedioPagoLocalData;
+import esb.ws.ResponseAnulacionMedioPagoLocalData;
+import esb.ws.ResponseAnulacionPagosYaData;
+
 
 public class PagoLocalEsb {
 
@@ -16,7 +20,7 @@ public class PagoLocalEsb {
 
 	public void confirmarPago(String digitoVerif, String fechaVenc, Long idReserva, String monto, String nroTarjeta) throws ServiceException, RemoteException{
 
-		RequestMedioPagoLocalData req = new RequestMedioPagoLocalData(digitoVerif, fechaVenc,idReserva, monto, nroTarjeta);
+		RequestConfirmacionMedioPagoLocalData req = new RequestConfirmacionMedioPagoLocalData(digitoVerif, fechaVenc,idReserva, monto, nroTarjeta);
 
 		IConfirmadorMedioPagoLocalService a = new IConfirmadorMedioPagoLocalServiceLocator();
 
@@ -28,18 +32,19 @@ public class PagoLocalEsb {
 
 	}
 	
-	public void cancelarPago(Long idPago) throws ServiceException{
+	public Long cancelarPago(Long idPago) throws ServiceException, RemoteException{
 		//Invocar medio pago externo
 		IConfirmadorMedioPagoLocalService a = new IConfirmadorMedioPagoLocalServiceLocator();
-
+		RequestAnulacionMedioPagoLocalData req = new RequestAnulacionMedioPagoLocalData();
+		req.setIdConfirmacionPago(idPago);
 		//cancelar pago
 
 		System.out.println("Invocando medio pago local - cancelarPago - Inicio ...");
 		IConfirmadorMedioPagoLocal b = a.getIConfirmadorMedioPagoLocalPort();
-		//b.cancelarPago(idPago);
+		ResponseAnulacionMedioPagoLocalData resAnulacion =  b.anularPago(req);
 		System.out.println("Invocando medio pago externo - cancelarPago - Fin ...");
 
-
+		return resAnulacion.getIdAnulacionPago();
 	}
 	
 }

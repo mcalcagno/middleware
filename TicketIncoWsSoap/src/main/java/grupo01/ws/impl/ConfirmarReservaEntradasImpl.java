@@ -52,14 +52,16 @@ public class ConfirmarReservaEntradasImpl implements ConfirmarReservaEntradas{
 			Reserva reserva = Manejador.getReserva(idReserva);
 			if (reserva != null){
 			
+			Double monto = Manejador.getMontoReserva(idReserva); 	
+				
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(fechaVenc);
 			if (idMedioPago == Constantes.MEDIO_PAGO_EXTERNO){
 				PagoExternoEsb pagoExt = new PagoExternoEsb();
-				pagoExt.confirmarPago(digitoVerificador,cal, idReserva, 10D, new Long(nroTarjeta));
+				pagoExt.confirmarPago(digitoVerificador,cal, idReserva, monto, new Long(nroTarjeta));
 			} else {
 				PagoLocalEsb pagoLocal = new PagoLocalEsb();
-				//pagoLocal.confirmarPago(digitoVerificador.toString(), cal, idReserva, 10d, nroTarjeta);
+				pagoLocal.confirmarPago(String.valueOf(digitoVerificador), String.valueOf(fechaVenc.getYear())+"-"+String.valueOf(fechaVenc.getMonth())+"-"+String.valueOf(fechaVenc.getDay()), idReserva, String.valueOf(monto), String.valueOf(nroTarjeta)); 
 			}
 			Confirmacion conf = Manejador.confirmarReserva(idReserva);
 			Manejador.crearMedioPago(idReserva,idMedioPago,nroTarjeta,fechaVenc,digitoVerificador);

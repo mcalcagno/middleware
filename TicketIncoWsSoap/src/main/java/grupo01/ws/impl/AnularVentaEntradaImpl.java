@@ -41,7 +41,7 @@ public class AnularVentaEntradaImpl implements AnularVentaEntrada{
 
 				} else {
 					PagoLocalEsb pagoLocal = new PagoLocalEsb();
-					//pagoLocal.confirmarPago(digitoVerificador.toString(), cal, idReserva, 10d, nroTarjeta);
+					idAnulacion = pagoLocal.cancelarPago(idConfirmacion);
 				}
 				Manejador.createAnulacion(idConfirmacion,idAnulacion);
 			} else {

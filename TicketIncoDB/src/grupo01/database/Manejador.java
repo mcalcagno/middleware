@@ -225,5 +225,10 @@ public class Manejador {
 		return cantReservas;
 		
 	}
+
+	public static Double getMontoReserva(Long idReserva) {
+		// TODO Auto-generated method stub
+		return 100.0;
+	}
 	
 }
