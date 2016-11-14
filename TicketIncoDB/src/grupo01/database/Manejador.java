@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
@@ -69,13 +70,21 @@ public class Manejador {
 	}
 
 	public static Reserva getReserva(Long idReserva) {
+		
+		Reserva reserva = null;
+		try{
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory(persistence_unit);
 		EntityManager em = emf.createEntityManager();
 		Query q = em.createQuery("SELECT e FROM Reserva e WHERE id=:id",Reserva.class);
 		q.setParameter("id", idReserva);
-		Reserva reserva = (Reserva)q.getSingleResult();
+		reserva = (Reserva)q.getSingleResult();
 		em.close();
 		emf.close();
+		} catch(NoResultException e){
+			reserva = null;
+			System.out.println("No existe la reserva con identificador: "+idReserva.toString());
+		}
+
 		return reserva;
 	}
 
@@ -114,13 +123,32 @@ public class Manejador {
 		
 	}
 	
+	public static Confirmacion getConfirmacion(Long idConfirmacion){
+
+		Confirmacion conf;
+
+		try{
+			EntityManagerFactory emf = Persistence.createEntityManagerFactory(persistence_unit);
+			EntityManager em = emf.createEntityManager();
+			Query q = em.createQuery("SELECT e FROM Confirmacion e WHERE id=:id",Confirmacion.class);
+			q.setParameter("id", idConfirmacion);
+			conf = (Confirmacion)q.getSingleResult();
+			em.close();
+			emf.close();
+
+		} catch(NoResultException e){
+			conf = null;
+			System.out.println("No existe un pago con identificador: "+idConfirmacion.toString());
+		}
+
+		return conf;
+	}
+	
 	public static Anulacion createAnulacion(Long idConfirmacion, Long idAnulacion){
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory(persistence_unit);
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
-		Query q = em.createQuery("SELECT e FROM Confirmacion e WHERE id=:id",Confirmacion.class);
-		q.setParameter("id", idConfirmacion);
-		Confirmacion conf = (Confirmacion)q.getSingleResult();
+		Confirmacion conf = getConfirmacion(idConfirmacion);
 		Anulacion anul = new Anulacion(conf);
 		anul.setId(idAnulacion);
 		em.persist(anul);

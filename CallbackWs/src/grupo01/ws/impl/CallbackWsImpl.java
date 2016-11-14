@@ -40,6 +40,7 @@ public class CallbackWsImpl implements CallbackWs {
 	}
 
 	
+	
 	private BufferedImage toBufferImage(Image img){
 		BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
 		Graphics2D bGr = bimage.createGraphics();
