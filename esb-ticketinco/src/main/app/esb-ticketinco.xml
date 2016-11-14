@@ -12,11 +12,11 @@ http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/
 http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
 http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd">
     
-    <http:request-config name="HTTP_Request_Configuration" host="localhost" port="8080" doc:name="HTTP Request Configuration"/>
-    <http:listener-config name="HTTP_Listener_ESB_MedioPago_Externo" host="localhost" port="8081" doc:name="HTTP Listener Configuration"/>
-    <http:listener-config name="HTTP_Listener_ESB_MedioPago_Local" host="localhost" port="8082" doc:name="HTTP Listener Configuration"/>
-    <jms:activemq-connector name="Active_MQ" brokerURL="tcp://localhost:61616" validateConnections="true" doc:name="Active MQ"/>
+    <http:request-config name="HTTP_Request_Configuration" host="192.168.43.144" port="8080" doc:name="HTTP Request Configuration"/>
+    <http:listener-config name="HTTP_Listener_ESB_MedioPago_Externo" host="192.168.43.144" port="8081" doc:name="HTTP Listener Configuration"/>
+    <http:listener-config name="HTTP_Listener_ESB_MedioPago_Local" host="192.168.43.144" port="8082" doc:name="HTTP Listener Configuration"/>
     <mulexml:jaxb-context name="JAXB_Context" packageNames="esb.dto" doc:name="JAXB Context"/>
+    <jms:activemq-connector name="Active_MQ" brokerURL="tcp://localhost:61616" validateConnections="true" doc:name="Active MQ"/>
     
 	<!-- Flujo para el medio de pago externo -->
     <flow name="ServicioConfirmacionMedioPagoExterno">
@@ -46,19 +46,37 @@ http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/
     </flow>
     
 	<!-- Flujo para el medio de pago local -->
-<!--     <flow name="ServicioConfirmacionMedioPagoLocal"> -->
-<!--         <http:listener config-ref="HTTP_Listener_ESB_MedioPago_Local" path="/confirmacionMedioPagoLocal" doc:name="HTTP"/> -->
-<!--         <cxf:jaxws-service serviceClass="esb.ws.IConfirmadorMedioPagoLocal" doc:name="CXF"/> -->
-<!--         <logger message="Sending the payload is #[payload] to 'Object to XML' " level="INFO" doc:name="Logger" /> -->
-<!--         <choice doc:name="Choice"> -->
-<!--             <when expression="#[flowVars.method.name == 'confirmarPago']"> -->
-<!--                 <mulexml:jaxb-object-to-xml-transformer jaxbContext-ref="JAXB_Context" doc:name="JAXB Object to XML (confirmarPago)"/> -->
-<!--             </when> -->
-<!--             <otherwise> -->
-<!--                 <mulexml:jaxb-object-to-xml-transformer mimeType="application/xml" jaxbContext-ref="JAXB_Context" doc:name="JAXB Object to XML (anularPago)"/> -->
-<!--             </otherwise> -->
-<!--         </choice> -->
-<!--         <jms:outbound-endpoint queue="MedioPagoLocalQueue" connector-ref="Active_MQ" doc:name="Queue"/> -->
-<!--         <logger level="INFO" doc:name="Logger" message="Leaving ObjectToXml with payload #[payload]"/> -->
-<!--     </flow> -->
+    <flow name="ServicioConfirmacionMedioPagoLocal">
+    
+        <http:listener config-ref="HTTP_Listener_ESB_MedioPago_Local" path="/confirmacionMedioPagoLocal" doc:name="HTTP"/>
+        <cxf:jaxws-service serviceClass="esb.ws.IConfirmadorMedioPagoLocal" doc:name="CXF"/>
+        <choice doc:name="Choice">
+            <when expression="#[flowVars.method.name == 'confirmarPago']">
+                <logger message="Sending the payload is #[payload] to the confirmar" level="INFO" doc:name="Logger"/>
+                <mulexml:jaxb-object-to-xml-transformer mimeType="application/xml" jaxbContext-ref="JAXB_Context" doc:name="JAXB Object to XML (confirmarPago)"/>
+                <byte-array-to-string-transformer doc:name="Byte Array to String"/>
+                <logger message="saliendo del byte array to string  #[payload]" level="INFO" doc:name="Logger"/>
+                <jms:outbound-endpoint queue="Queue" connector-ref="Active_MQ" doc:name="JMS"/>
+                <logger message="Leaving ObjectToXml with payload #[payload]" level="INFO" doc:name="Logger"/>
+                <set-payload value="#['&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;&lt;responseMedioPagoLocalData&gt;&lt;status&gt;true&lt;/status&gt;&lt;mensaje&gt;Pago procesado con exito&lt;/mensaje&gt;&lt;idConfirmacionPago&gt;1501&lt;/idConfirmacionPago&gt;&lt;/responseMedioPagoLocalData&gt;']" mimeType="application/xml" doc:name="Set Payload"/>
+                <string-to-byte-array-transformer doc:name="String to Byte Array"/>
+                <mulexml:jaxb-xml-to-object-transformer mimeType="application/xml" jaxbContext-ref="JAXB_Context" doc:name="XML to JAXB Object"/>
+            </when>
+            <otherwise>
+                <logger message="Sending the payload is #[payload] to the cancelar" level="INFO" doc:name="Logger"/>
+                <mulexml:jaxb-object-to-xml-transformer mimeType="application/xml" jaxbContext-ref="JAXB_Context" doc:name="JAXB Object to XML (cancelarPago)"/>
+                <byte-array-to-string-transformer doc:name="Byte Array to String"/>
+                <logger message="saliendo del byte array to string  #[payload]" level="INFO" doc:name="Logger"/>
+                <jms:outbound-endpoint queue="Queue2" connector-ref="Active_MQ" doc:name="JMS"/>
+                <logger message="Leaving ObjectToXml with payload #[payload]" level="INFO" doc:name="Logger"/>
+                <set-payload value="#['&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;&lt;responseAnulacionMedioPagoLocalData&gt;&lt;idAnulacionPago&gt;15&lt;/idAnulacionPago&gt;&lt;/responseAnulacionMedioPagoLocalData&gt;']" mimeType="application/xml" doc:name="Set Payload"/>
+                <string-to-byte-array-transformer doc:name="String to Byte Array"/>
+                <mulexml:jaxb-xml-to-object-transformer mimeType="application/xml" jaxbContext-ref="JAXB_Context" doc:name="XML to JAXB Object"/>
+            </otherwise>
+        </choice>
+        <response>
+            <logger message="Sending the response with payload #[payload]" level="INFO" doc:name="Logger"/>
+        </response>
+
+    </flow>
 </mule>
